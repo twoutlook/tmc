@@ -46,11 +46,17 @@ class Club(models.Model):
 class Person(models.Model):
     name = models.CharField(max_length=32) # allow same shortname
     fullname = models.CharField(max_length=100) # but not fullname
+    is_member = models.BooleanField('Is Member ', default=False)
     member_since = models.DateField('Member Since', null=True, blank=True)
     note = models.CharField(max_length=100, null=True, blank=True) # but not fullname
     
     def __str__(self):
-        return self.name
+        if self.is_member:
+            return self.name +" *"
+        return self.name 
+                
+    class Meta:
+        ordering=['-is_member','name']
 
 class Role(models.Model):
     name = models.CharField(max_length=32,unique=True) 

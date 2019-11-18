@@ -93,8 +93,8 @@ class Meeting(models.Model):
     class Meta:
         unique_together = ('person', 'date1','role2')
        
-        verbose_name ="Meeting V2"
-        verbose_name_plural ="Meeting V2"
+        # verbose_name ="Meeting V2"
+        # verbose_name_plural ="Meeting V2"
 
 
 

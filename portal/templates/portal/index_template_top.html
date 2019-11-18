@@ -1,0 +1,42 @@
+{% extends 'portal/basefluid_app.html' %}
+{% load static %}
+<!-- {% load km001_extra %} -->
+
+{% block app_name %}
+
+{{app_name}}
+{% endblock %}
+
+
+{% block go_up %}
+<a href='about/' class='btn btn-warning'>進入後台</a>
+{% endblock %}
+
+
+{% block page_name %}
+{{page_name}}
+{% endblock %}
+
+
+{% block version_note  %}
+
+{% endblock %}
+
+{% block content %}
+
+
+<table class='gridtable'>
+    <tr>
+        <th></th>
+        <th>連結|備註</th>
+    </tr>
+    {% for x in list %}
+    <tr>
+        <th>{{ forloop.counter}}</th>
+        <td>
+            <a href='{{x.link}}/' class='btn {{x.btn}}'>{{x.disp}}</a><br>{{x.note|default_if_none:''}} </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock  %}

@@ -1,0 +1,32 @@
+{% extends 'portal/base.html' %}
+{% load static %}
+<!-- {% load km001_extra %} -->
+
+{% block page_title %}
+杏福
+{% endblock%}{% block content %}
+<h2>目錄</h2>
+<table class='gridtable'>
+    <tr>
+        <th></th>
+        <th>負責部門</th>
+        <th>連結</th>
+        <th>備註</th>
+    </tr>
+    {% for x in list %}
+    <tr>
+        <th>{{ forloop.counter}}</th>
+        <td>{{x.owner}}</td>
+        
+                <td>
+                        <a href='{{x.link}}/' class='btn {{x.btn}}'>{{x.disp}}</a></td>
+        <td>{{x.note|default_if_none:''}} </td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+
+{% endblock  %}
+
+

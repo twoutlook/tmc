@@ -1,0 +1,42 @@
+{% extends 'portal/base_app_page.html' %}
+{% load static %}
+<!-- {% load km001_extra %} -->
+
+{% block app_name %}
+阿里云云服務器
+
+{% endblock%}
+
+{% block page_name %}
+aliyun001
+{% endblock%}
+
+
+{% block go_up  %}
+<a class='btn btn-info' href='../info/'>回到上層 </a>
+{% endblock %}
+
+{% block content %}
+<!-- <h2>SOP 列表</h2> -->
+<table class='gridtable'>
+    <tr>
+        <th>項次</th>
+        <th>主題</th>
+        <!-- <th>Note1</th> -->
+          <!-- <th>Note2</th> -->
+        <th>Note</th>
+    </tr>
+    {% for x in list %}
+    <tr>
+        <!-- <th>{{ forloop.counter}}</th> -->
+        <th>{{ x.seq}}</th>
+        <td valign='top'><span class='as-h3'>{{x.title}}</span> <hr>{{x.note1}} </td>
+        <!-- <td>{{x.note2}} </td> -->
+        <td>{{x.note|linebreaks}} </td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+
+{% endblock  %}

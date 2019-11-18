@@ -1,0 +1,35 @@
+{% extends 'portal/basefluid_app.html' %}
+{% load static %}
+{% load portal_extra %}
+
+
+{% block app_name %}
+杏福
+{% endblock %}
+
+{% block page_name %}
+信息安全之訪問控制
+{% endblock %}
+
+{% block go_up %}
+
+{% endblock %}
+
+
+{% block content %}
+<div class='alert alert-warning'>
+        <div class='as-h3'>目前用戶不具有訪問本頁面的權限。
+                <hr>
+                &nbsp;&nbsp;user:&nbsp;{{user}}
+                <br>&nbsp;&nbsp;app:&nbsp;{{app}}
+                <br>&nbsp;&nbsp;page:&nbsp;{{page}}
+                <hr>
+
+                如有疑問，請截屏向項目管理人員咨詢。<br>必需包括完整user,app,page信息和本頁面查詢時間。</div>
+        <!-- <h3>{{msg|safe}}</h3> -->
+</div>
+
+<div class='as-h3'>回到 <a class='btn btn-info' href='/'>信息系統入口</a> &nbsp;&nbsp;, 或是進入 <a class='btn btn-info'
+                href='/admin/'>後台</a></div>
+
+{% endblock  %}

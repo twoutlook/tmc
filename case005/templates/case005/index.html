@@ -1,0 +1,31 @@
+{% extends 'case005/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<hr>
+
+
+<table class='gridtable'>
+<tr>
+    <th></th>
+    <th>Club</th>
+    <th>Meetings</th>
+    <th>People</th>
+</tr>
+{% for x in list1 %}
+<tr>
+    <th>{{ forloop.counter }}</th>
+    <td>{{ x.club__name }}</td>
+    <td align='right'><a href='{{ x.club }}'>{{ x.meetingcnt }}</a></td>
+    <td align='right'><a href='{{ x.club }}/person/'>{{ x.headcnt }}</a></td>
+   
+</tr>
+{% endfor  %}
+
+
+</table>
+
+
+
+
+{% endblock %}

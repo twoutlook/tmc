@@ -1,0 +1,98 @@
+{% extends 'rentland/base.html' %}
+{% load static %}
+{% load humanize %}
+{% load rentland_extra %}
+
+{% block page_title %}
+園區面積(2019年3月版本）
+{% endblock%}
+
+{% block go_upper %}
+<a href='..'>回到上層</a>
+{% endblock%}
+
+
+{% block content %}
+<h2>--- 荒地 ---</h2>
+
+<!-- <h2>按園區名稱及區塊</h2> -->
+
+<hr>
+<h3>按園區滙總</h3>
+<!-- {{list2_sum}} -->
+單位：亩
+<table class='gridtable'>
+    <tr>
+        <th></th>
+
+        <th>園區</th>
+        <th>類別</th>
+        <th>面積</th>
+
+    </tr>
+    {% for item in list2_sum %}
+
+    <tr>
+        <th>{{ forloop.counter}}</th>
+        <td> {{item.zone19__zone_name}}</td>
+
+        <td>
+            {{item.cat}}
+        </td>
+        <td align='right'>
+            {{item.area__sum| default_if_zero:''|floatformat:2| intcomma}}
+        </td>
+     
+
+    </tr>
+    {% endfor %}
+
+</table>
+<hr>
+
+<h3>列表</h3>
+單位：亩
+<table class='gridtable'>
+    <tr>
+        <th></th>
+
+        <th>園區</th>
+        <th>類別</th>
+        <th>名稱</th>
+        <th>面積</th>
+        <th>備註</th>
+        <th>建議</th>
+
+    </tr>
+    {% for item in list2 %}
+
+    <tr>
+        <th>{{ forloop.counter}}</th>
+        <td> {{item.zone19}}</td>
+
+        <td>
+            {{item.cat}}
+        </td>
+        <td>
+            {{item.fruit|default_if_none:'---'}}
+        </td>
+        <td align='right'>
+            {{item.area| default_if_zero:''|floatformat:2| intcomma}}
+        </td>
+        <td>
+            {{item.note|default_if_none:''}}
+        </td>
+        <td>
+            {{item.todo|default_if_none:''}}
+        </td>
+
+
+    </tr>
+    {% endfor %}
+
+</table>
+<br>
+<div class='alert alert-primary'>
+Note: 可以將多處荒地為一筆的記錄拆分為多筆，以方便一一備註。
+</div> 
+{% endblock  %}

@@ -1,0 +1,13 @@
+{% extends 'note/base.html' %}
+{% load static %}
+{% block content %}
+
+<h1><br>Leanne's Note</h1>
+
+{% for x in list %}
+<hr>
+<h3>{{x.yr}} {{x.num}}</h3>
+<pre>{{x.date1}} - {{x.date2}} </pre>
+
+{% endfor %}
+{% endblock %}

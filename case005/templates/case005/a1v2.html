@@ -1,0 +1,32 @@
+{% extends 'case002/base.html' %}
+{% load static %}
+{% block content %}
+
+<h2><br>a1v2</h2>
+<a href='../'>回到目錄</a>
+<table class='gridtable'>
+    <tr>
+   
+    <th></th>
+    <th>place</th>
+    <th>天數</th>
+    <th>人數</th>
+    <th>人天</th>
+    
+    </tr>
+    {% for x in list %}
+    <tr>
+
+        <th>{{forloop.counter}} </th>
+        <td> {{x.place}} </td>
+        <td align='right'> {{x.daycnt}} </td>
+        <td align='right'> {{x.headcnt}} </td>
+        <td align='right'> {{x.idcnt}} </td>
+     </tr>
+
+    {% endfor %}
+</table>
+<br>
+<br>
+
+{% endblock %}

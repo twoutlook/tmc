@@ -1,0 +1,27 @@
+{% extends 'portal/basefluid_app.html' %}
+{% load static %}
+{% load portal_extra %}
+
+
+{% block app_name %}
+杏福
+{% endblock %}
+
+{% block page_name %}
+頁面主檔未建立，或是帳號不具有權限。
+{% endblock %}
+
+{% block go_up %}
+
+{% endblock %}
+
+
+{% block content %}
+<div class='alert alert-warning'>
+        <div class='as-h2'>{{msg|safe}}</div>
+<!-- <h3>{{msg|safe}}</h3> -->
+</div>
+
+<div class='as-h3'>回到 <a class='btn btn-info' href='/'>信息系統入口</a> &nbsp;&nbsp;, 或是進入 <a  class='btn btn-info' href='/admin/'>後台</a></div>
+
+{% endblock  %}

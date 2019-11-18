@@ -1,0 +1,22 @@
+# 參考 https://tutorial.djangogirls.org/en/deploy/
+*.pyc
+*~
+__pycache__
+
+# 我們設置虛擬環境不在項目內，
+# 另外我們命名為 venv
+# myvenv
+/venv
+
+# 數據庫是另有考量的
+# 先期由本地主導時，仍然上傳
+/db.sqlite3
+
+# 根據實做經驗，
+# 本地能放幾個最近的數據庫是比較方便的。
+# /db_backup
+
+# 
+#/static
+
+.DS_Store

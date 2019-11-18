@@ -1,0 +1,58 @@
+{% extends 'case005/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<a href='../'>Back to Index</a>
+<hr>
+<h2>Meeting Head Count</h2>
+<table class='gridtable'>
+    <tr>
+   
+    <th>Date</th>
+    <!-- <th>Type</th> -->
+    <th>Member</th>
+    <th>Guess</th>
+    <th>Total</th>
+    
+    </tr>
+    {% for x in list1 %}
+    <tr>
+
+        <td> {{x.date1}} </td>
+        <!-- <td > {{x.member}} </td> -->
+        <td align='right'> {{x.Member}} </td>
+        <td align='right'> {{x.Guest}} </td>
+        <td align='right'> {{x.total}} </td>
+     </tr>
+
+    {% endfor %}
+</table>
+<hr>
+<table class='gridtable'>
+    <tr>
+   
+    <th></th>
+    <!-- <th>Date</th> -->
+    <!-- <th>Type</th> -->
+    <th>Member</th>
+    <th>Name</th>
+    <th>Role</th>
+    
+    </tr>
+    {% for x in list2 %}
+    <tr>
+
+        <th>{{forloop.counter}} </th>
+        <!-- <td> {{x.date1}} </td> -->
+        <td > {{x.member}} </td>
+        <td align='left'> {{x.name}} </td>
+        <td align='left'> {{x.role}} </td>
+        <!-- <td align='right'> {{x.total}} </td> -->
+     </tr>
+
+    {% endfor %}
+</table>
+
+
+{% endblock %}

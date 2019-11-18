@@ -1,0 +1,92 @@
+{% extends 'case002/base.html' %}
+{% load static %}
+{% load case001_extra %}
+{% block content %}
+
+<h1><br>CASE001</h1>
+<a href='../../'>回到目錄</a>
+<hr>
+<h2>(b1) {{key.yr}}年{{key.mo}}月份園區用工統計表</h2>
+<table class='gridtable'>
+    <tr>
+
+        <th></th>
+        <th>園區</th>
+        <th>01</th>
+        <th>02</th>
+        <th>03</th>
+        <th>04</th>
+        <th>05</th>
+        <th>06</th>
+        <th>07</th>
+        <th>08</th>
+        <th>09</th>
+        <th>10</th>
+        <th>11</th>
+        <th>12</th>
+        <th>13</th>
+        <th>14</th>
+        <th>15</th>
+        <th>16</th>
+        <th>17</th>
+        <th>18</th>
+        <th>19</th>
+        <th>20</th>
+        <th>21</th>
+        <th>22</th>
+        <th>23</th>
+        <th>24</th>
+        <th>25</th>
+        <th>26</th>
+        <th>27</th>
+        <th>28</th>
+        <th>29</th>
+        <th>30</th>
+        <th>31</th>
+
+    </tr>
+    {% for x in list %}
+    <tr>
+
+        <th>{{forloop.counter}} </th>
+        <td> {{x.place}} </td>
+        <td align='right'>{{x.1|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.2|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.3|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.4|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.5|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.6|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.7|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.8|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.9|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.10|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.11|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.12|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.13|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.14|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.15|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.16|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.17|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.18|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.19|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.20|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.21|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.22|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.23|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.24|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.25|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.26|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.27|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.28|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.29|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.30|default_if_none_zero:''}}</td>
+        <td align='right'>{{x.31|default_if_none_zero:''}}</td>
+
+    </tr>
+
+    {% endfor %}
+</table>
+<br>
+<br>
+
+{% endblock %}

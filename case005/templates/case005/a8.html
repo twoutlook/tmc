@@ -1,0 +1,38 @@
+{% extends 'case002/base.html' %}
+{% load static %}
+{% block content %}
+
+<h1><br>CASE001</h1>
+
+<h2><br>季度各月份統計</h2>
+<a href='../'>回到目錄</a>
+<table class='gridtable'>
+    <tr>
+   
+    <th></th>
+    <th>place</th>
+    <th>year</th>
+    <th>month</th>
+    <th>天數</th>
+    <th>人數</th>
+    <th>人天</th>
+    
+    </tr>
+    {% for x in list %}
+    <tr>
+
+        <th>{{forloop.counter}} </th>
+        <td> {{x.place}} </td>
+        <td align='center'> {{x.date1__year}} </td>
+        <td align='center'> {{x.date1__month}} </td>
+        <td align='right'> {{x.daycnt}} </td>
+        <td align='right'> {{x.headcnt}} </td>
+        <td align='right'> {{x.idcnt}} </td>
+     </tr>
+
+    {% endfor %}
+</table>
+<br>
+<br>
+
+{% endblock %}

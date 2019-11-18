@@ -1,0 +1,36 @@
+{% extends 'case005/base.html' %}
+{% load static %}
+{% block content %}
+
+<a href='../'>Back to Index</a>
+<hr>
+<!-- <h2>Attenance/Role/Points</h2>
+<hr> -->
+
+<h3>=== {{name}} ===</h2>
+<table class='gridtable'>
+    <tr>
+   
+    <th></th>
+    <!-- <th>Name</th> -->
+    <th>Date</th>
+    <th>Role</th>
+    <th>Points</th>
+    
+    </tr>
+    {% for x in list1 %}
+    <tr>
+
+        <th>{{forloop.counter}} </th>
+        <!-- <td > {{x.name}}</a> </td> -->
+        <td > {{x.date1}}</a> </td>
+        <td > {{x.role}}</a> </td>
+        <td align='right'> {{x.points}} </td>
+     </tr>
+
+    {% endfor %}
+</table>
+<br>
+<br>
+
+{% endblock %}

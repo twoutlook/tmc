@@ -1,0 +1,17 @@
+{% extends 'portal/base_index.html' %}
+{% load static %}
+{% load portal_extra %}
+
+
+{% block page_title %}
+杏福-{{app.disp}}
+{% endblock %}
+{% block appnote %}{{app.note}}
+{% endblock %}
+
+{% block content %}
+
+<h3>當前帳號沒有權限</h3>
+<h4>回到 <a href='/'>信息系統入口</a></h4>
+
+{% endblock  %}

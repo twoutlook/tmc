@@ -1,0 +1,35 @@
+{% extends 'portal/basefluid.html' %}
+{% load static %}
+<!-- {% load km001_extra %} -->
+
+{% block page_title %}
+杏福
+{% endblock%}{% block content %}
+
+<style>
+li{
+    /* font-size: 130%; */
+    margin-left: -16px;
+}
+</style>
+
+<h2>{{obj}}</h2>
+<table class='gridtable'>
+    <tr>
+        <th></th>
+        <th colspan='1' width="30%">步骤</th>
+        <th>備註</th>
+    </tr>
+    {% for x in list %}
+    <tr>
+        <th>{{ forloop.counter}}</th>
+        <td valign='top'>({{x.frequency}})
+        {{x.title}} </td>
+        <td valign='top'>{{x.note|safe}} </td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+
+{% endblock  %}

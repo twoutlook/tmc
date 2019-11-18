@@ -1,0 +1,39 @@
+{% extends 'note/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+<h1><br>Club</h1>
+
+<h2><br>季度各月份統計</h2>
+<a href='a8/'>各地點各月份統計</a>
+<hr>
+<h2>月份索引</h2>
+<table class='gridtable'>
+    <tr>
+   
+    <th></th>
+    <th>year</th>
+    <th>month</th>
+    <th>天數</th>
+    <th>人數</th>
+    <th>人天</th>
+    
+    </tr>
+    {% for x in list1 %}
+    <tr>
+
+        <th>{{forloop.counter}} </th>
+        <td align='center'> {{x.date1__year}} </td>
+        <td align='center'> {{x.date1__month}} </td>
+        <td align='right'> {{x.daycnt}} </td>
+        <td align='right'> {{x.headcnt}} </td>
+        <td align='right'> {{x.idcnt|intcomma}} </td>
+     </tr>
+
+    {% endfor %}
+</table>
+<br>
+<br>
+
+{% endblock %}

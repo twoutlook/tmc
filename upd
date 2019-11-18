@@ -1,0 +1,7 @@
+deactivate
+git pull
+. venv/bin/activate
+./manage.py makemigrations
+./manage.py migrate
+deactivate
+sudo systemctl restart httpd

@@ -1,0 +1,47 @@
+{% extends 'case005/base.html' %}
+{% load static %}
+
+{% block title1 %}
+<h1>{{key.club.name}} TMC </h1>
+{% endblock %}
+{% block content %}
+
+
+<a href='../'>Back to Index</a>
+<hr>
+<div class='as-h2'>{{key.person.name}}
+    
+</div>
+{% if key.person.member_since %}
+<div class='as-h4'>Member since {{key.person.member_since}}</div>
+{% endif  %}
+
+
+<table class='gridtable'>
+    <tr>
+
+        <th></th>
+        <th>Meeting</th>
+        <th>Roles</th>
+     
+    </tr>
+    {% for x in list1 %}
+    <tr>
+
+        <th>{{forloop.counter}} </th>
+        <td ><a href='../../{{x.date1}}/'>{{x.date1}}</a> </td>
+        <td>
+                {% for x2 in x.role2s %} 
+                * {{ x2.role2.name }}<br>
+                 {% endfor %} 
+ 
+        </td>
+
+
+
+    </tr>
+
+    {% endfor %}
+</table>
+
+{% endblock %}

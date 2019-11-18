@@ -1,0 +1,28 @@
+{% extends 'portal/base_app_page.html' %}
+{% load static %}
+<!-- {% load km001_extra %} -->
+
+{% block app_name %}
+Transfer WP to another site
+
+{% endblock%}
+
+{% block page_name %}
+2019-09-02
+{% endblock%}
+
+
+{% block go_up  %}
+<a class='btn btn-info' href='../info/'>回到上層 </a>
+{% endblock %}
+
+{% block content %}
+{% for x in list %}
+<span class='as-h3'>({{ x.seq}}) {{x.title}}</span> 
+{{x.note|linebreaks}}
+{% endfor %}
+
+
+
+
+{% endblock  %}

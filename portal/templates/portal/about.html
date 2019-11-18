@@ -1,0 +1,41 @@
+{% extends 'portal/basefluid_app.html' %}
+{% load static %}
+<!-- {% load km001_extra %} -->
+
+{% block app_name %}
+Case003信息系統 About
+
+{% endblock%}
+
+{% block page_name %}
+關於
+{% endblock%}
+
+
+{% block go_up  %}
+<a class='btn btn-info' href='/'>進入系統 </a>
+<a class='btn btn-danger' href='/admin/'>進入後台 </a>
+
+{% endblock %}
+
+{% block content %}
+本系統是基於 Django 開發的<b>管理信息系统 MIS</b>（Management Information System），簡稱<b>信息系统</b>。
+<ul>
+<li>關於 Django 的官網，請訪問 <a href='https://www.djangoproject.com/'>https://www.djangoproject.com/</a>。
+<li>關於 MIS 的定義和介紹，可以參考 MBAlib 的<a href='https://wiki.mbalib.com/wiki/MIS'>MIS條目</a>。</li>
+</ul>
+<br>本網站遵循<a href='https://wiki.mbalib.com/wiki/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8'>信息安全</a>的基本要求：
+<ul>
+        <li><b>保密性：</b>進入系統或是後台，均需授權的帳密。各帳號按工作需求，只開放必要的權限。</li>
+        <li><b>完整性：</b>整個系統的代碼實施業界規範的版本控制。數據實施每日備份。</li>
+        <li><b>可用性：</b>當代主流覽器連網即可查看，不受到電腦、平板和手機的廠牌或作業系統的限制。</li>
+
+</ul>
+
+
+
+
+
+
+
+{% endblock  %}

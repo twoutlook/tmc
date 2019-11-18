@@ -1,0 +1,45 @@
+{% extends 'case005/base.html' %}
+{% load static %}
+{% load case001_extra %}
+{% block content %}
+
+<a href='../'>Back to Index</a>
+<hr>
+<h2>Meeting Roles</h2>
+<hr>
+
+<table class='gridtable'>
+    <tr>
+   
+    <th></th>
+    <!-- <th>Name</th> -->
+    <th>Date</th>
+    <th>TME</th>
+    <th>GE</th>
+    <th>Ah Counter</th>
+    <th>Timer</th>
+    <th>Grammarian</th>
+    <th>TT Master</th>
+    <th>TT Evaluator</th>
+    
+    </tr>
+    {% for x in list1 %}
+    <tr>
+
+        <th>{{forloop.counter}} </th>
+        <!-- <td > {{x.name}}</a> </td> -->
+        <td > {{x.date1}}</a> </td>
+        <td > {{x.TME|default_if_none_zero:'---'}}</a> </td>
+        <td > {{x.GE|default_if_none_zero:'---'}}</a> </td>
+        <td > {{x.Ah|default_if_none_zero:'---'}}</a> </td>
+        <td > {{x.Timer|default_if_none_zero:'---'}}</a> </td>
+        <td > {{x.Grammarian|default_if_none_zero:'---'}}</a> </td>
+        <td > {{x.TT_master|default_if_none_zero:'---'}}</a> </td>
+        <td > {{x.TT_Evaluator|default_if_none_zero:'---'}}</a> </td>
+    </tr>
+
+    {% endfor %}
+</table>
+
+
+{% endblock %}

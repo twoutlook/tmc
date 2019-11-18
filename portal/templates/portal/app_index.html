@@ -1,0 +1,47 @@
+{% extends 'portal/basefluid_app.html' %}
+{% load static %}
+<!-- {% load km001_extra %} -->
+
+
+{% block app_name %}
+杏福-{{app.disp}}
+{% endblock %}
+
+
+{% block go_up %}
+<!-- <hr> -->
+<i>應用最後更新日期：2019-08-13</i>
+<a href='admin/' class='btn btn-warning'>進入後台</a>
+{% endblock %}
+
+
+{% block page_name %}
+頂層目錄
+{% endblock %}
+
+{% block content %}
+
+<table class='gridtable_v2'>
+    <tr>
+        <th></th>
+        <th>負責部門</th>
+        <!-- <th>連結</th>
+        <th>備註</th> -->
+        <th>連結-信息維護人員-備註</th>
+    </tr>
+    {% for x in list %}
+    <tr>
+        <th>{{ forloop.counter}}</th>
+        <td align='center'><div class='as-h4'>{{ x.owner}}</div>
+            
+            </td>
+        <td>
+            <a href='{{x.link}}/' class='btn {{x.btn}}'>{{x.disp}}</a><br>
+
+            信息維護人員：{{x.encoder| default_if_none:'(未指定)'}}<br>
+    備註：{{x.note|default_if_none:''|safe}} </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock  %}

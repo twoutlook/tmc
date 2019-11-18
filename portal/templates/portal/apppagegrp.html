@@ -1,0 +1,38 @@
+{% extends 'portal/basefluid_app.html' %}
+{% load static %}
+<!-- {% load km001_extra %} -->
+
+{% block app_name %}
+杏福
+{% endblock%}
+{% block page_name %}
+APP-Page-Grp
+{% endblock%}
+
+
+{% block go_up  %}
+<a class='btn btn-info' href='../info/'>回到上層 </a>
+{% endblock %}
+
+{% block content %}
+<!-- <h2>SOP 列表</h2> -->
+<table class='gridtable'>
+    <tr>
+        <th></th>
+        <th>APP</th>
+        <th>Page</th>
+        <th>Auth Grp</th>
+    </tr>
+    {% for x in list %}
+    <tr>
+        <th>{{ forloop.counter}}</th>
+        <td>{{x.app}} </td>
+        <td>{{x.page}} </td>
+        <td>{{x.authgrp}} </td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+
+{% endblock  %}

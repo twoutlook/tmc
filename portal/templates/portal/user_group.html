@@ -1,0 +1,140 @@
+{% extends 'portal/basefluid_app.html' %}
+{% load static %}
+{% load portal_extra %}
+
+
+{% block app_name %}
+Entire Project
+{% endblock %}
+{% block page_name %}權限列表
+{% endblock %}
+
+{% block content %}
+
+<div class='as-h3'>by Group</div>
+
+<table class='gridtable_v2'>
+    {% for x in grp_list %}
+    <tr>
+        <th colspan=5>{{x}}
+        </th>
+    </tr>
+    {% for y in x.user_list %}
+
+    <tr>
+        <td>{{y}}</td>
+        <td>{{y.first_name}}</td>
+        <td>
+            {{y.is_superuser|default_if_true:'Super'}}</td>
+        <td>
+            {{y.is_staff|default_if_true:'Staff'}}</td>
+        <td>
+            {{y.is_active|default_if_true:'Active'}}
+        </td>
+
+        </td>
+    </tr>
+
+    {% endfor %}
+    {% if forloop.last %}
+    {% else %}
+    <tr>
+        <td style='border-width: 0'></td>
+    </tr>
+    {% endif  %}
+
+    {% endfor %}
+</table>
+<hr>
+
+<div class='as-h3'>by Active User only</div>
+
+<table class='gridtable_v2'>
+    <!-- <tr>
+        <th></th>
+        <th>user</th>
+        <th>disp</th>
+        <th>S</th>
+        <th>F</th>
+        <th>A</th>
+        <th>Groups</th>
+    </tr> -->
+    {% for x in list %}
+    <tr>
+        <th>
+            {{x.username}}</th>
+    </tr>
+    <tr>
+
+        <th>
+            {{ x.first_name}}</th>
+    </tr>
+    {% if x.is_superuser %}
+    <tr>
+        <th>{{x.is_superuser|default_if_true:'Super'}}</th>
+    </tr>
+    {% endif  %}
+    <!-- {% if x.is_staff %}
+    <tr>
+        <th>{{x.is_staff|default_if_true:'Staff'}}</th>
+    </tr>
+    {% endif  %}
+    {% if x.is_active %}
+    <tr>
+        <th>{{x.is_active|default_if_true:'Active'}}</th>
+    </tr> -->
+    {% endif  %}
+
+
+    {% for g in x.groups.all %}
+    <tr>
+        <td> {{ g.name }}</td>
+    </tr>
+    {% endfor  %}
+    {% if forloop.last %}
+    {% else %}
+    <tr>
+        <td style='border-width: 0'></td>
+    </tr>
+    {% endif  %}
+
+    {% endfor %}
+</table>
+
+
+<!-- <h2>目錄</h2> -->
+S: superuser |
+F: staff |
+A: active
+<table class='gridtable'>
+    <tr>
+        <th></th>
+        <th>user</th>
+        <th>disp</th>
+        <th>S</th>
+        <th>F</th>
+        <th>A</th>
+        <th>Groups</th>
+    </tr>
+    {% for x in list %}
+    <tr>
+        <th>{{ forloop.counter}}</th>
+        <td>
+            <!-- <a href='{{x.username}}/' class='btn {{x.btn}}'>{{x.username}}</a></td> -->
+            {{x.username}}</td>
+        <td>{{ x.first_name}}</td>
+
+        <td>{{x.is_superuser|default_if_true:'V'}} </td>
+        <td>{{x.is_staff|default_if_true:'V'}} </td>
+        <td>{{x.is_active|default_if_true:'V'}} </td>
+        <td>
+            {% for g in x.groups.all %}
+            {{ g.name }}&nbsp;
+            {% endfor  %}
+
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock  %}

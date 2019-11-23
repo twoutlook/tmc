@@ -6,6 +6,7 @@
 - 任何入必需屬於某個club, 有可能是 member or guest
   - 這個人在這 club 雖然是 geust，但是在別的 club 可能是 member
   - 先有一個供每個 club 各自運行的領域，跨 club 的關係先不在這階段實現。
+  - 雖然曾經是會員，但當下可能沒有續費，並不是會員。
 
 # Role
 - 

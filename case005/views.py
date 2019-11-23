@@ -213,12 +213,14 @@ def club_date_role(request,club,date1):
     return render(request,getHtml('club_date_role') , context)
 
 def club_person_list(request,club):
-    list1 = Meeting.objects.filter(club=club).values('person','person__name').annotate(meetingcnt=Count('date1',distinct=True)).order_by('-meetingcnt','person__name')
+    # list1 = Meeting.objects.filter(club=club).values('person','person__name').annotate(meetingcnt=Count('date1',distinct=True)).order_by('-meetingcnt','person__name')
+    list1 = Person.objects.filter(club=club).order_by('name')
+    
     club = Club.objects.get(id = club)
-    for x in list1:
+    # for x in list1:
         # person = x['person']
-        profile = Person.objects.get(id=x['person'])
-        x['profile']=profile
+        # profile = Person.objects.get(id=x['person'])
+        # x['profile']=profile
     
     key={'club':club}
 

@@ -5,6 +5,9 @@ from case005.models import Data2
 
 from case005.models import Club
 from case005.models import Person
+from case005.models import Role
+from case005.models import Meeting
+
 
 import os
 import array
@@ -300,5 +303,65 @@ class Command(BaseCommand):
                                   
                         # addMember(A,'Guest','2019-06-05',C)
                        
-        m5Member(src,'Registration')
+        # m5Member(src,'Registration')
+        dict2={2:'2019-06-05',4:'2019-06-12',6:'2019-06-19',8:'2019-06-26',11:'2019-07-03',13:'2019-07-10',15:'2019-07-17',17:'2019-07-24',19:'2019-07-31',22:'2019-08-07',24:'2019-08-14',26:'2019-08-21',28:'2019-08-28',31:'2019-09-04',33:'2019-09-11',35:'2019-09-18',37:'2019-09-25',40:'2019-10-09',42:'2019-10-16',44:'2019-10-23',46:'2019-10-30',49:'2019-11-06',51:'2019-11-13',53:'2019-11-20',}
+        def m5Meeting(src,sheetname):
+                wb = load_workbook(filename=src,read_only=False)
+                ws =wb[sheetname]
+                
+                def get_val(cell):
+                    if cell == 'None':
+                        return '---'
+                    if row[1].value in [None,'None']:
+                        return 'xxx'
+                    else:
+                        if str(cell.value) == 'None':
+                            return '---'
+                        
+                        return str(cell.value)
+                rec = 0
+                mem_cnt = 0
+                for row in ws.rows:
+                    rec += 1
+                        
+                    A = get_val(row[0])
+                    # self.stdout.write(A)
+                    B = get_val(row[1])
+                   
+                    if B == 'Member':
+                     
+
+                        club = Club.objects.get(name='Fun+')
+                        p = Person.objects.get(club=club,name=A)
+                        # p.save()
+                        
+                        for k,val in dict2.items():
+                            role = get_val(row[k])
+                            temp =club.name+" "+p.name+" "+str(k)+" "+val+ " "+ role
+                            if role in ['Absence','---',]:
+                                # temp += " ... to skip"
+                                # self.stdout.write(temp)
+                                pass
+
+                            else:
+                                # temp += " ... to skip"
+                                if role == 'TT-master':
+                                    role = 'TT Master'
+                                if role == 'Ah-counter':
+                                    role = 'Ah-Counter'
+                                
+                                
+                                try:
+                                    role2 = Role.objects.get(name=role)
+                                except :
+                                    self.stdout.write("... to fix "+ role)
+                                m = Meeting(club=club,person=p,date1=val,role2=role2)
+                                temp2 = m.club.name+" "+m.person.name+" "+ m.date1+" "+m.role2.name
+                                m.save()
+                                self.stdout.write(temp2)
+                                
+                                  
+                        # addMember(A,'Guest','2019-06-05',C)
+                       
+        m5Meeting(src,'Registration')
         

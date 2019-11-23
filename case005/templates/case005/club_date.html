@@ -16,7 +16,7 @@
     <th></th>
     <!-- <th>Date</th> -->
     <!-- <th>Type</th> -->
-    <th><a href='../person/'>Name</a></th>
+    <th>Name</th>
     <!-- <th>Type</th> -->
     <th><a href='role/'>Roles</a></th>
     
@@ -25,7 +25,7 @@
     <tr>
 
         <th>{{forloop.counter}} </th>
-        <td><a href='../person/{{x.person}}/'>{{x.person__name}}</a> </td>
+        <td>{{x.person__name}} </td>
         <!-- <td>{{x.member}} </td> -->
         <td>
                 {% for x2 in x.roles %} 

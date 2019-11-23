@@ -21,7 +21,9 @@ def getHtml(html):
     return app+'/'+html+'.html'
 
 def index(request):
-    list1 = Meeting.objects.values('club','club__name').annotate(meetingcnt=Count('date1',distinct=True),headcnt=Count('person',distinct=True)).order_by('club__name')
+    list1 = Club.objects.order_by('name')
+   
+    # list1 = Meeting.objects.values('club','club__name').annotate(meetingcnt=Count('date1',distinct=True),headcnt=Count('person',distinct=True)).order_by('club__name')
     
     context = {'list1': list1}
     # return render(request, 'case002/index.html', context)

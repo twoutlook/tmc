@@ -9,15 +9,15 @@
 <tr>
     <th></th>
     <th>Club</th>
-    <th><a href='admin/'>Meetings</a></th>
+    <th>Meeting</th>
     <th>People</th>
 </tr>
 {% for x in list1 %}
 <tr>
     <th>{{ forloop.counter }}</th>
-    <td>{{ x.club__name }}</td>
-    <td align='right'><a href='{{ x.club }}'>{{ x.meetingcnt }}</a></td>
-    <td align='right'><a href='{{ x.club }}/person/'>{{ x.headcnt }}</a></td>
+    <td>{{ x.name }}</td>
+    <td align='center'><a href='{{ x.id }}/'>Meeting</a></td>
+    <td align='center'><a href='{{ x.id }}/person/'>Person</a></td>
    
 </tr>
 {% endfor  %}

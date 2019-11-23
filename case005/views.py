@@ -21,7 +21,7 @@ def getHtml(html):
     return app+'/'+html+'.html'
 
 def index(request):
-    list1 = Meeting.objects.values('club','club__name').annotate(meetingcnt=Count('date1',distinct=True),headcnt=Count('person',distinct=True))
+    list1 = Meeting.objects.values('club','club__name').annotate(meetingcnt=Count('date1',distinct=True),headcnt=Count('person',distinct=True)).order_by('club__name')
     
     context = {'list1': list1}
     # return render(request, 'case002/index.html', context)
@@ -110,7 +110,7 @@ def club(request,club):
     key={'club':club}
 
     # obj = Club.objects.get(id = club)
-    list1 = Meeting.objects.values('date1').annotate(headcnt=Count('person',distinct=True))
+    list1 = Meeting.objects.filter(club=club).values('date1').annotate(headcnt=Count('person',distinct=True))
     # key={'obj':obj}
 
     # pivot_table = pivot(list1, 'date1', 'member', 'id',aggregation=Count)

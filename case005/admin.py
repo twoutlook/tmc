@@ -71,9 +71,9 @@ class PersonResource(resources.ModelResource):
 
 class PersonAdmin(ImportExportModelAdmin):
     resource_class = PersonResource
-    list_display = ('name', 'fullname','is_member','member_since','note', 'id')   
-    list_filter = ['is_member',]
-    search_fields = ['name']
+    list_display = ('club', 'name', 'fullname','is_member','member_since','note', 'id')   
+    list_filter = ['club','is_member',]
+    search_fields = ['name','fullname']
   
 admin.site.register(Person,PersonAdmin)
 

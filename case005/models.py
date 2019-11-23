@@ -44,6 +44,8 @@ class Club(models.Model):
         return self.name
 
 class Person(models.Model):
+    club = models.ForeignKey(Club, on_delete=models.CASCADE,default=1)
+    
     name = models.CharField(max_length=32) # allow same shortname
     fullname = models.CharField(max_length=100) # but not fullname
     is_member = models.BooleanField('Is Member ', default=False)
@@ -52,8 +54,8 @@ class Person(models.Model):
     
     def __str__(self):
         if self.is_member:
-            return self.name +" *"
-        return self.name 
+            return self.name +" *"+" ["+self.club.name +"]"
+        return self.name +" ["+self.club.name +"]"
                 
     class Meta:
         ordering=['-is_member','name']
@@ -69,7 +71,7 @@ class PersonClub(models.Model):
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
     # def __str__(self):
-    #     return self.name
+    #     return self.club.name
 
 class ClubDate(models.Model):
     date1 = models.DateField('Meeting Date', default=datetime.date.today)

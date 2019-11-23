@@ -45,7 +45,6 @@ class Club(models.Model):
 
 class Person(models.Model):
     club = models.ForeignKey(Club, on_delete=models.CASCADE,default=1)
-    
     name = models.CharField(max_length=32) # allow same shortname
     fullname = models.CharField(max_length=100) # but not fullname
     is_member = models.BooleanField('Is Member ', default=False)
@@ -59,6 +58,8 @@ class Person(models.Model):
                 
     class Meta:
         ordering=['-is_member','name']
+        # unique_together = ( 'club','name')
+      
 
 class Role(models.Model):
     name = models.CharField(max_length=32,unique=True) 

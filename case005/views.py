@@ -232,6 +232,7 @@ def club_person_list(request,club):
 
 def club_person(request,club,person):
     person = Person.objects.get(id=person)
+    # print(person.__dict__)
     list1 = Meeting.objects.filter(club=club,person=person).values('date1').annotate(rolecnt=Count('role2'))
     club = Club.objects.get(id = club)
     

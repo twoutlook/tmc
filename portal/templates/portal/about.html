@@ -3,26 +3,50 @@
 <!-- {% load km001_extra %} -->
 
 {% block app_name %}
-Case003信息系統 About
+Toastmasters Club
 
 {% endblock%}
 
 {% block page_name %}
-關於
+About
 {% endblock%}
 
 
 {% block go_up  %}
-<a class='btn btn-info' href='/'>進入系統 </a>
-<a class='btn btn-danger' href='/admin/'>進入後台 </a>
+<a class='btn btn-info' href='/'>goto Front Page </a>
+<a class='btn btn-danger' href='/admin/'>goto Admin </a>
 
 {% endblock %}
 
 {% block content %}
+<div class='as-h3'>數據部份</div>
+<br>
+<ul>
+        <li>Fun+ 的基礎數據是由 Ben 以 Excel 檔案提供，由我寫了一段程序一次性導入。
+
+                <ul>
+                        <li>先導入 Member</li>
+                        <li>再導入 Meeting，有先調整 Role 的統一寫法。</li>
+                        <li>目前的 EXCEL 格式不能體現一個人在會議時採任多個 Role。這可能是 West 不易照用的原因之一。</li>
+                        <li>沒有導入 Guest 部份，將名字標準化後，也可以另行導入。</li>
+                        <li>沒有導入 Best 部份。</li>
+
+                        
+                </ul>
+        </li>
+        <li>West 的基礎數據是由 HY 直接在後台維護。</li>
+        <li>現在開始有 2 個 club 的會議，不適合直接進標準後台維護。會客製會議人員角色的輸入頁面。</li>
+        
+</ul>
+
+
+<hr>
+<div class='as-h3'>技術底層部分</div>
+<br>
 本系統是基於 Django 開發的<b>管理信息系统 MIS</b>（Management Information System），簡稱<b>信息系统</b>。
 <ul>
-<li>關於 Django 的官網，請訪問 <a href='https://www.djangoproject.com/'>https://www.djangoproject.com/</a>。
-<li>關於 MIS 的定義和介紹，可以參考 MBAlib 的<a href='https://wiki.mbalib.com/wiki/MIS'>MIS條目</a>。</li>
+        <li>關於 Django 的官網，請訪問 <a href='https://www.djangoproject.com/'>https://www.djangoproject.com/</a>。
+        <li>關於 MIS 的定義和介紹，可以參考 MBAlib 的<a href='https://wiki.mbalib.com/wiki/MIS'>MIS條目</a>。</li>
 </ul>
 <br>本網站遵循<a href='https://wiki.mbalib.com/wiki/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8'>信息安全</a>的基本要求：
 <ul>

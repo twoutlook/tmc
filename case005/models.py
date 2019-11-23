@@ -67,11 +67,6 @@ class Role(models.Model):
         return self.name
 
 
-class PersonClub(models.Model):
-    club = models.ForeignKey(Club, on_delete=models.CASCADE)
-    person = models.ForeignKey(Person, on_delete=models.CASCADE)
-    # def __str__(self):
-    #     return self.club.name
 
 class ClubDate(models.Model):
     date1 = models.DateField('Meeting Date', default=datetime.date.today)

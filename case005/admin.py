@@ -10,7 +10,7 @@ from .models import Club
 from .models import Person
 from .models import Role
 
-from .models import PersonClub
+# from .models import PersonClub
 from .models import ClubDate
 
 

@@ -1,0 +1,91 @@
+{% extends 'simple/base.html' %}
+
+{% block title1 %}
+Club: {{key.club.name}}
+
+{% endblock %}
+{% block title2 %}
+Person List
+
+{% endblock %}
+
+{% block content %}
+
+<!-- <a href='add/' class='btn btn-info'>Add Person</a> -->
+<a href='../../' class='btn btn-info'>Back</a>
+
+<hr>
+<div class='as-h3'>Member</div>
+
+<table class='gridtable'>
+    <tr>
+        <th>*</th>
+        <th>Name</th>
+        <th>Fullname</th>
+        <th>Member</th>
+        <th>Since</th>
+        <th>Note</th>
+
+    </tr>
+    {% for x in list1 %}
+    <tr>
+        <th>{{forloop.counter}}</th>
+        <!-- <td><a href='{{x.id}}/'>{{x.name}}</a></td> -->
+        <td>{{x.name}}</td>
+       
+        <td>{{x.fullname}}</td>
+        <td align='center'>
+            {% if x.is_member %}
+            V
+            {% else  %}
+            .
+            {% endif  %}
+
+        </td>
+        <td>{{x.member_since|date:'Y-m-d'}}</td>
+        <td>{{x.note|default_if_none:''}}</td>
+
+    </tr>
+
+    {% endfor %}
+
+
+</table>
+
+<hr>
+<div class='as-h3'>Guest</div>
+<table class='gridtable'>
+    <tr>
+        <th>*</th>
+        <th>Name</th>
+        <th>Fullname</th>
+        <th>Member</th>
+        <th>Since</th>
+        <th>Note</th>
+
+    </tr>
+    {% for x in list2 %}
+    <tr>
+        <th>{{forloop.counter}}</th>
+        <!-- <td><a href='{{x.id}}/'>{{x.name}}</a></td> -->
+        <td>{{x.name}}</td>
+        <td>{{x.fullname}}</td>
+        <td align='center'>
+            {% if x.is_member %}
+            V
+            {% else  %}
+            .
+            {% endif  %}
+
+        </td>
+        <td>{{x.member_since|date:'Y-m-d'}}</td>
+        <td>{{x.note|default_if_none:''}}</td>
+
+    </tr>
+
+    {% endfor %}
+
+
+</table>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'simple/base.html' %}
+
+{% block title1 %}
+Simple
+
+{% endblock %}
+{% block title2 %}
+Person List
+
+{% endblock %}
+
+{% block content %}
+
+<a href='add/' class='btn btn-primary'>add</a>
+<hr>
+<table class='gridtable'>
+
+    {% for x in people %}
+    <tr>
+        <th>{{forloop.counter}}</th>
+        <td>{{x.club}}</td>
+        <td>{{x.name}}</td>
+        <td>{{x.fullname}}</td>
+        <td>{{x.is_member}}</td>
+        <td>{{x.member_since|date:'Y-m-d'}}</td>
+
+    </tr>
+
+    {% endfor %}
+
+
+</table>
+{% endblock %}

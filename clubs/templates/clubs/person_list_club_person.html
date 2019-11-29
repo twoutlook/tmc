@@ -1,0 +1,68 @@
+{% extends 'simple/base.html' %}
+
+{% block title1 %}
+Club: {{key.club.name}}
+
+{% endblock %}
+{% block title2 %}
+<!-- Person: {{key.person.name}} -->
+
+{% endblock %}
+
+{% block content %}
+<a href='../' class='btn btn-info'>Show Club Person</a>
+<hr>  
+
+      
+<table class='gridtable'>
+
+
+    <tr>
+        <th>Name</th>
+        <td>{{x.name}}</td>
+
+    </tr>
+
+    <tr>
+        <th>Fullname</th>
+        <td>{{x.fullname}}</td>
+
+    </tr>
+
+    <tr>
+        <th>Member</th>
+        <td align='center'>
+            {% if x.is_member %}
+            V
+            {% else  %}
+            .
+            {% endif  %}
+
+        </td>
+
+    </tr>
+
+    <tr>
+        <th>Since</th>
+        <td>{{x.member_since|date:'Y-m-d'}}</td>
+
+    </tr>
+
+    <tr>
+        <th>Note</th>
+        <td>{{x.note|default_if_none:''}}</td>
+
+
+    </tr>
+
+    <tr>
+        <td align='center' colspan='2'>
+            <a href='edit/' class='btn btn-info'>Edit</a>
+
+        </td>
+
+    </tr>
+</table>
+
+
+{% endblock %}

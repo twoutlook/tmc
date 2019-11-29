@@ -15,15 +15,15 @@ Person List
 <a href='../../' class='btn btn-info'>Back</a>
 
 <hr>
-<div class='as-h3'>Member</div>
+<div class='as-h2'>{{key.club.name}} Club Member List</div>
 
 <table class='gridtable'>
     <tr>
         <th>*</th>
         <th>Name</th>
         <th>Fullname</th>
-        <th>Member</th>
-        <th>Since</th>
+        <!-- <th>Member</th> -->
+        <th>Member Since</th>
         <th>Note</th>
 
     </tr>
@@ -34,14 +34,14 @@ Person List
         <td>{{x.name}}</td>
        
         <td>{{x.fullname}}</td>
-        <td align='center'>
+        <!-- <td align='center'>
             {% if x.is_member %}
             V
             {% else  %}
             .
             {% endif  %}
 
-        </td>
+        </td> -->
         <td>{{x.member_since|date:'Y-m-d'}}</td>
         <td>{{x.note|default_if_none:''}}</td>
 

@@ -25,6 +25,8 @@ urlpatterns = [
     # path('hr001/', include('hr001.urls')), 
     path('about/', TemplateView.as_view(template_name="portal/about.html")),
   
+    path('chained/', include('chained.urls')), 
+    path('simple/', include('simple.urls')), 
     path('', include('case005.urls')), 
     # path('', include('portal.urls')), 
     # path('case005/', include('case005.urls')), 

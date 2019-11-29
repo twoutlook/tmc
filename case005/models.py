@@ -84,10 +84,11 @@ class Meeting(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE,default = 1)
     # name = models.CharField(max_length=32)
     # member =  models.CharField( 'Member or Guest',choices=MEMBER_CHOICES,max_length=6)
-    date1 = models.DateField('Meeting Date', default=datetime.date.today)
+    date1 = models.DateField('Date', default=datetime.date.today)
     # role = models.CharField( 'Meeting Role', choices=ROLE_CHOICES,max_length=32)
-    role2 = models.ForeignKey(Role, on_delete=models.CASCADE,default = 12) # NOTE: default is 12 ---
+    role2 = models.ForeignKey(Role, on_delete=models.CASCADE,default = 12,verbose_name='Role') # NOTE: default is 12 ---
     # points = models.IntegerField(default=0)
+    
     class Meta:
         unique_together = ('person', 'date1','role2')
        

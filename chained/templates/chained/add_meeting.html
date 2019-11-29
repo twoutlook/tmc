@@ -1,0 +1,21 @@
+{% extends 'case005/base.html' %}
+{% load static %}
+
+{% block title1 %}
+<h1>{{key.club.name}} TMC  </h1>
+{% endblock %}
+{% block content %}
+
+
+<a href='../'>Back to Index</a>
+<hr>
+<h2>Add meeting {{ key.obj.name}}</h2>
+<table class='gridtable'>
+
+<form method="POST" class="post-form">{% csrf_token %}
+    {{ form.as_table }}
+
+<tr><td colspan='2' align='center'><button type="submit" class="save btn btn-primary">Save</button></td></tr>    
+</form>
+</table>
+{% endblock %}

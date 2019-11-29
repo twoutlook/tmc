@@ -1,0 +1,29 @@
+{% extends 'case005/base.html' %}
+{% load static %}
+{% block content %}
+
+<a href='../'>Back to Index</a>
+<hr>
+<h2>Member's Point List</h2>
+<table class='gridtable'>
+    <tr>
+   
+    <th></th>
+    <th>Name</th>
+    <th>Points</th>
+    
+    </tr>
+    {% for x in list1 %}
+    <tr>
+
+        <th>{{forloop.counter}} </th>
+        <td > <a href='{{x.name}}/'>{{x.name}}</a> </td>
+        <td align='right'> {{x.pointssum}} </td>
+     </tr>
+
+    {% endfor %}
+</table>
+<br>
+<br>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'case005/base.html' %}
+{% load static %}
+{% load case001_extra %}
+{% block content %}
+
+<a href='../'>Back to Index</a>
+<hr>
+<h2>Meeting Best</h2>
+<hr>
+
+<table class='gridtable'>
+    <tr>
+   
+    <th></th>
+    <!-- <th>Name</th> -->
+    <th>Date</th>
+    <th>TT</th>
+    <th>Role</th>
+    <th>Speaker</th>
+    
+    </tr>
+    {% for x in list1 %}
+    <tr>
+
+        <th>{{forloop.counter}} </th>
+        <!-- <td > {{x.name}}</a> </td> -->
+        <td > {{x.date1}}</a> </td>
+        <td > {{x.tt|default_if_none_zero:'---'}}</a> </td>
+        <td > {{x.role|default_if_none_zero:'---'}}</a> </td>
+        <td > {{x.speaker|default_if_none_zero:'---'}}</a> </td>
+    </tr>
+
+    {% endfor %}
+</table>
+<br>
+<br>
+
+{% endblock %}

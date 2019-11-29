@@ -10,8 +10,8 @@ from .models import Role
 
 
 from .models import Best
-
-
+from .forms import MeetingForm
+from django.shortcuts import redirect
 # https://pypi.org/project/django-pivot/
 from django_pivot.pivot import pivot
 from django_pivot.histogram import histogram
@@ -121,6 +121,42 @@ def club(request,club):
   
     context = {'key': key,'list1': list1}
     return render(request,getHtml('club') , context)
+
+def add_meeting(request):
+    if request.method == 'POST':
+        form = MeetingForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect('/meeting_detail/'+str(post.pk)+"/")
+            # context = {'obj': post}
+    
+            # return render(request,getHtml('meeting_detail/'+str(post.pk)+'/') , context)
+
+
+        else:
+            # pass
+            print('POST but not valid...')
+            # form = MeetingForm()
+            context = {'form': form}
+            return render(request,getHtml('add_meeting') , context)
+
+    else:
+        # pass
+        form = MeetingForm()
+        context = {'form': form}
+        return render(request,getHtml('add_meeting') , context)
+
+def meeting_detail(request,pk):
+    obj = Meeting.objects.get(pk=pk)
+    
+
+    # pivot_table = pivot(list1, 'date1', 'member', 'id',aggregation=Count)
+    # for x in pivot_table:
+    #     x['total']=x['Member']+x['Guest']
+  
+    context = {'obj': obj}
+    return render(request,getHtml('meeting_detail') , context)
 
 
 def rolecnt(request):

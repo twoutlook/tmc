@@ -1,0 +1,35 @@
+{% extends 'case002/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+<h1><br>CASE001</h1>
+
+<h2><br>b1 list</h2>
+<a href='../'>回到目錄</a>
+<table class='gridtable'>
+    <tr>
+   
+    <th></th>
+    <th>year</th>
+    <th>month</th>
+    <th>筆數</th>
+    <th>地點數</th>
+    
+    </tr>
+    {% for x in list %}
+    <tr>
+
+        <th>{{forloop.counter}} </th>
+        <td align='center'> {{x.date1__year}} </td>
+        <td align='center'> {{x.date1__month}} </td>
+        <td align='right'> {{x.idcnt|intcomma}} </td>
+        <td align='right'> <a href='{{x.date1__year}}/{{x.date1__month}}/'>{{x.placecnt|intcomma}} </a></td>
+     </tr>
+
+    {% endfor %}
+</table>
+<br>
+<br>
+
+{% endblock %}

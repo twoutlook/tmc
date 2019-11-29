@@ -31,6 +31,8 @@ urlpatterns = [
     # # path('init_ww/', views.init_ww, name='init_ww'),
     # path('ww2/', views.ww2, name='ww2'),
     
+    path('add_meeting/', views.add_meeting, name='add_meeting'),
+    path('meeting_detail/<int:pk>/', views.meeting_detail, name='meeting_detail'),
     path('<int:club>/', views.club, name='club'),
     path('<int:club>/person/', views.club_person_list, name='club_person_list'),
     path('<int:club>/person/<int:person>/', views.club_person, name='club_person'),

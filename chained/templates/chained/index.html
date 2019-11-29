@@ -1,0 +1,32 @@
+{% extends 'case005/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<a href='/about'>goto About</a>
+<hr>
+
+
+<table class='gridtable'>
+<tr>
+    <th></th>
+    <th>Club</th>
+    <th>Meeting</th>
+    <th>People</th>
+</tr>
+{% for x in list1 %}
+<tr>
+    <th>{{ forloop.counter }}</th>
+    <td>{{ x.name }}</td>
+    <td align='center'><a href='{{ x.id }}/'>Meeting</a></td>
+    <td align='center'><a href='{{ x.id }}/person/'>Person</a></td>
+   
+</tr>
+{% endfor  %}
+
+
+</table>
+
+
+
+
+{% endblock %}

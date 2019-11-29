@@ -11,20 +11,28 @@
 
   <!-- MISDj CSS -->
   <link rel="stylesheet" href="/static/portal/bootstrap.min.css">
-  <link rel="stylesheet" href="/static/portal/style014.css">
+  <link rel="stylesheet" href="/static/portal/style015.css">
   <title>TMC</title>
 </head>
 
 <body>
   <div class='container-fluid'>
     <h3>&nbsp;</h3>
-{% block title1 %}
-<h1>Toastmasters Club </h1>
-{% endblock %}
-
+    <div class='as-h1'>
+      {% block title1 %}
+      Toastmasters Club
+      {% endblock %}
+    </div>
+    <div class='as-h2'>
+      {% block title2 %}
+      (title2)
+      {% endblock %}
+    </div>
+<hr/>
     {% block content %}{% endblock %}
     <div class='page_footer'>
-      <hr> &nbsp;&nbsp;&nbsp;query time：{% now "Y-m-d H:i:s" %}<hr> 
+      <hr> &nbsp;&nbsp;&nbsp;query time：{% now "Y-m-d H:i:s" %}
+      <hr>
     </div>
   </div>
 </body>

@@ -1,0 +1,43 @@
+{% extends 'case005/base.html' %}
+{% load static %}
+
+{% block title1 %}
+<h1>{{key.club.name}} TMC </h1>
+{% endblock %}
+{% block content %}
+
+
+<a href='../'>Back to Index</a>
+<hr>
+<h2> Meeting </h2>
+
+<table class='gridtable'>
+    <tr>
+        <th>Club</th>
+        <td>{{obj.club}}</td>
+    </tr>
+    <tr>
+        <th>Date</th>
+        <td>{{obj.date1}}</td>
+    </tr>
+    <tr>
+        <th>Person</th>
+        <td>{{obj.person.name}} 
+            {% if obj.person.name == obj.person.fullname %}
+
+            {% else %}
+            {{obj.person.fullname}}
+            {% endif %}
+            
+        </td>
+    </tr>
+    <tr>
+        <th>Role</th>
+        <td>{{obj.role2}}</td>
+    </tr>
+    
+
+</table>
+<hr>
+<a href='../../add_meeting/' class='btn btn-primary'>Add Another Meeting</a>
+{% endblock %}

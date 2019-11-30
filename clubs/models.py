@@ -41,17 +41,13 @@ class ClubDate(models.Model):
     class Meta:
         unique_together = ( 'date1','club')
       
-
+# https://stackoverflow.com/questions/11508744/django-models-filter-by-foreignkey
 class Meeting(models.Model):
-   
-    club = models.ForeignKey(Club, on_delete=models.CASCADE,default = 1)
-    person = models.ForeignKey(Person, on_delete=models.CASCADE,default = 1)
-    # name = models.CharField(max_length=32)
-    # member =  models.CharField( 'Member or Guest',choices=MEMBER_CHOICES,max_length=6)
+    club = models.ForeignKey(Club, on_delete=models.CASCADE)
+    persontxt = models.CharField('Name',max_length=32,null=True,blank=True)
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
     date1 = models.DateField('Date', default=datetime.date.today)
-    # role = models.CharField( 'Meeting Role', choices=ROLE_CHOICES,max_length=32)
-    role2 = models.ForeignKey(Role, on_delete=models.CASCADE,default = 12,verbose_name='Role') # NOTE: default is 12 ---
-    # points = models.IntegerField(default=0)
+    role2 = models.ForeignKey(Role, on_delete=models.CASCADE,verbose_name='Role') # NOTE: default is 12 ---
     
     class Meta:
         unique_together = ('person', 'date1','role2')

@@ -11,17 +11,28 @@
 <hr>
 <div class='as-h2'>{{key.person.name}}
     
+        {% if key.person.name == key.person.fullname %}
+
+        {% else %}
+     {{key.person.fullname}}
+        {% endif %}
+
 </div>
-<div class='as-h3'>Fullname: {{key.person.fullname}}
-    
-</div>
-
-<div class='as-h4'>Is Member: {{ key.person.is_member }} </div>
 
 
 
 
-<div class='as-h4'>Member since: {{key.person.member_since|date:'Y-m-d'}}</div>
+
+{% if key.person.is_member %}
+<div class='as-h4'>Club Member</div>
+
+
+
+
+<div class='as-h4'>member since: {{key.person.member_since|date:'Y-m-d'}}</div>
+{% else %}
+Club Guest
+{% endif %}
 
 
 

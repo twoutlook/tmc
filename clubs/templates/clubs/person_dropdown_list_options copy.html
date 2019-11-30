@@ -1,0 +1,4 @@
+<option value="">---------</option>
+{% for person in persons %}
+<option value="{{ person.pk }}">{{ person.name }} {% if person.name == person.fullname %}   {% else %}  {{ person.fullname }} {% endif %}{% if person.is_member %} (Member) {% endif %} </option>
+{% endfor %}

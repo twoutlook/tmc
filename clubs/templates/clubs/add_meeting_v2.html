@@ -1,0 +1,45 @@
+{% extends 'case005/base.html' %}
+{% load static %}
+
+{% block title1 %}
+<h1>{{key.club.name}} TMC  </h1>
+{% endblock %}
+{% block content %}
+
+
+<a href='../'>Back to Index</a>
+<hr>
+<h2>Add meeting {{ key.obj.name}}</h2>
+<table class='gridtable'>
+
+<form method="POST" class="post-form" id="personForm" data-cities-url="{% url 'clubs:ajax_load_persons' %}" novalidate>
+    
+    {% csrf_token %}
+    {{ form.as_table }}
+
+<tr><td colspan='2' align='center'><button type="submit" class="save btn btn-primary">Save</button></td></tr>    
+</form>
+</table>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    $("#id_club").change(function () {
+      var url = $("#personForm").attr("data-cities-url");  // get the url of the `load_cities` view
+      var clubId = $(this).val();  // get the selected country ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'club': clubId       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $("#id_person").html(data);  // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+  </script>
+
+
+
+{% endblock %}

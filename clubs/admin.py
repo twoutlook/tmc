@@ -55,7 +55,7 @@ class MeetingResource(resources.ModelResource):
 
 class MeetingAdmin(ImportExportModelAdmin):
     resource_class = MeetingResource
-    list_display = ('club','date1', 'person','role2')
+    list_display = ('club','date1', 'persontxt','person','role2')
     fields = ('club','date1', 'person', 'role2')
     list_filter = ['club','person','role2']
     search_fields = ['date1']

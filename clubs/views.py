@@ -3,6 +3,7 @@ from django.db.models import Count, Sum, Max, Min
 from django.views.generic import ListView, CreateView, UpdateView
 from django.urls import reverse_lazy
 import re
+from django.contrib.auth.decorators import login_required
 
 from .models import Meeting
 from .models import Club
@@ -13,6 +14,11 @@ from django.http import HttpResponseRedirect
 
 from .models import Best
 from .forms import MeetingForm
+from .forms import ClubMeetingForm
+
+# https://simpleisbetterthancomplex.com/tutorial/2018/01/29/how-to-implement-dependent-or-chained-dropdown-list-with-django.html
+from .forms import MeetingFormV2 
+
 from .forms import PersonForm
 
 from django.shortcuts import redirect
@@ -151,10 +157,99 @@ def edit_person(request,club,person):
     
     return render(request, getHtml('edit_person'), {'form': form,'key': key})
 
+# https://simpleisbetterthancomplex.com/tutorial/2018/01/29/how-to-implement-dependent-or-chained-dropdown-list-with-django.html
+def load_persons(request):
+    country_id = request.GET.get('club')
+    persons = Person.objects.filter(club_id=country_id).order_by('name')
+    # persons = Person.objects.order_by('name')
+    
+    return render(request, 'clubs/person_dropdown_list_options.html', {'persons': persons})
+
+@login_required(login_url='/admin/login/?next=/')
+def club_add_meeting(request,club_id):
+    club = Club.objects.get(id=club_id)
+    key={'club':club}
+    msg = None
+
+    if  request.user.groups.filter(name = 'west_add_meeting').exists():
+        print("current user HAS group 'west_add_meeting'")
+
+    else:
+        form = ClubMeetingForm()
+        
+        print("current user doesn't have group 'west_add_meeting'")
+        msg ="Current account is Not allowed to add meeting of club "+ club.name
+        context = {'form': form,'key':key,'msg':msg}
+           
+        return render(request,getHtml('club_add_meeting') , context)
+            
+
+    if request.method == 'POST':
+        form = ClubMeetingForm(request.POST)
+        
+        if form.is_valid():
+            post = form.save(commit=False)
+            
+            post.club = club
+
+            print("going to use ",post.persontxt, " to get obj")
+            persons = Person.objects.filter(club=club_id,name=post.persontxt)
+
+            if persons.count() != 1:
+                print(" Not found this obj, or logic wrong with more than one objs")
+                
+                msg ="Person not found"
+                list1 =Person.objects.filter(club=club_id).order_by('name')
+                temp = '<br>'
+                for x in list1:
+                    temp += x.name+ '<br>'
+                msg += temp
+                context = {'form': form,'key':key,'msg':msg}
+           
+                return render(request,getHtml('club_add_meeting') , context)
+            
+            # Already
+            meetings = Meeting.objects.filter(club=club_id,date1=post.date1,person=persons[0],role2=post.role2)
+            if meetings.count() == 1:
+                print(" Not found this obj, or logic wrong with more than one objs")
+                msg ="Club|Date|Person|Role exists!"
+                context = {'form': form,'key':key,'msg':msg}
+           
+                return render(request,getHtml('club_add_meeting') , context)
+            
+
+            post.person = persons[0]
+            post.save()
+            return redirect('../meeting/'+str(post.pk)+"/")
+            # context = {'obj': post}
+    
+            # return render(request,getHtml('meeting_detail/'+str(post.pk)+'/') , context)
+
+
+        else:
+            # pass
+            print('POST but not valid...')
+            # form = MeetingForm()
+            # context = {'form': form,'key':key}
+            # return render(request,getHtml('club_add_meeting') , context)
+
+    else:
+        # pass
+        form = ClubMeetingForm()
+        # context = {'form': form}
+    
+    # NOTE: for NOT POST, and also for POST not valid
+    context = {'form': form,'key':key}
+           
+    return render(request,getHtml('club_add_meeting') , context)
+
+
+
 
 def add_meeting(request):
     if request.method == 'POST':
         form = MeetingForm(request.POST)
+        
         if form.is_valid():
             post = form.save(commit=False)
             post.save()
@@ -188,6 +283,12 @@ def meeting_detail(request,pk):
   
     context = {'obj': obj}
     return render(request,getHtml('meeting_detail') , context)
+
+def club_meeting_detail(request,club_id,pk):
+    obj = Meeting.objects.get(pk=pk)
+    context = {'obj': obj}
+    return render(request,getHtml('club_meeting_detail') , context)
+
 
 
 def rolecnt(request):

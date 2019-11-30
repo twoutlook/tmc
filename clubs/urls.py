@@ -13,6 +13,10 @@ urlpatterns = [
     # path('person_changelist/<int:club>/add/', views.PersonCreateView.as_view(), name='person_add'),
     # path('person_changelist/<int:club>/add_person/', views.add_person, name='add_person'),
     path('person_list/<int:club_id>/add/', views.add_person, name='add_person'),
+
+
+    # https://simpleisbetterthancomplex.com/tutorial/2018/01/29/how-to-implement-dependent-or-chained-dropdown-list-with-django.html
+    path('ajax/load-persons/', views.load_persons, name='ajax_load_persons'),  # <-- this one here
     
     # path('add/', views.PersonCreateView.as_view(), name='person_add'),
     # path('<int:pk>/', views.PersonUpdateView.as_view(), name='person_change'),
@@ -21,6 +25,8 @@ urlpatterns = [
     path('add_meeting/', views.add_meeting, name='add_meeting'),
     path('meeting_detail/<int:pk>/', views.meeting_detail, name='meeting_detail'),
     path('<int:club>/', views.club, name='club'),
+    path('<int:club_id>/add_meeting/', views.club_add_meeting, name='club_add_meeting'),
+    path('<int:club_id>/meeting/<int:pk>/', views.club_meeting_detail, name='club_meeting_detail'),
     path('<int:club>/person/', views.club_person_list, name='club_person_list'),
     path('<int:club>/person/<int:person>/', views.club_person, name='club_person'),
     path('<int:club>/<date1>/', views.club_date, name='club_date'),

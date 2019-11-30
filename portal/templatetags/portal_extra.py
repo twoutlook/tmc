@@ -19,7 +19,15 @@ def clean_decimal(value):
         # need to remove leading zero 計件
     s2 = s.rstrip('0').rstrip('.') if '.' in s else s
     return s2
-    
+
+@register.filter(is_safe=False)
+def true_is_member(value):
+    if value :
+        return 'Member'
+    return 'Guest'
+
+
+
 @register.filter(is_safe=False)
 def default_rec5(value,arg):
     """If value is None, use given default."""

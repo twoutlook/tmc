@@ -1,0 +1,41 @@
+{% extends 'clubs/base.html' %}
+{% load static %}
+
+{% block app_name %}
+{{key.club.name}} TMC 
+{% endblock %}
+
+{% block page_name %}
+Meeting List 
+{% endblock %}
+
+{% block go_up  %}
+<a class='btn btn-info' href='../../'>go Up </a>&nbsp;<a  class='btn btn-warning' href='add/'>add Meeting</a>
+{% endblock %}
+
+{% block content %}
+
+
+<table class='gridtable'>
+    <tr>
+   
+    <th></th>
+    <th>Date</th>
+    <!-- <th>Type</th> -->
+    <th>People</th>
+    <th>Meeting</th>
+    
+    </tr>
+    {% for x in list1 %}
+    <tr>
+
+        <th>{{forloop.counter}} </th>
+        <td align='center'>  <a href='{{x.date1}}/'>{{x.date1}} </a> </td>
+        <td align='right'>  {{x.headcnt}} </td>
+        <td align='center'>   <a href='{{x.date1}}/add/'>Add </a>  </td>
+     </tr>
+
+    {% endfor %}
+</table>
+
+{% endblock %}

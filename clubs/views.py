@@ -15,6 +15,8 @@ from django.http import HttpResponseRedirect
 from .models import Best
 from .forms import MeetingForm
 from .forms import ClubMeetingForm
+from .forms import ClubMeetingWithDateForm
+
 
 # https://simpleisbetterthancomplex.com/tutorial/2018/01/29/how-to-implement-dependent-or-chained-dropdown-list-with-django.html
 from .forms import MeetingFormV2 
@@ -108,6 +110,17 @@ def club(request,club):
   
     context = {'key': key,'list1': list1}
     return render(request,getHtml('club') , context)
+
+def club_meeting_list(request,club_id):
+    club = Club.objects.get(id = club_id)
+    
+    key={'club':club}
+
+    list1 = Meeting.objects.filter(club=club).values('date1').annotate(headcnt=Count('person',distinct=True))
+   
+    context = {'key': key,'list1': list1}
+    return render(request,getHtml('club_meeting_list') , context)
+
 
 def add_person(request,club_id):
     club = Club.objects.get(id=club_id)
@@ -244,6 +257,85 @@ def club_add_meeting(request,club_id):
     return render(request,getHtml('club_add_meeting') , context)
 
 
+@login_required(login_url='/admin/login/?next=/')
+def club_add_meeting_with_date(request,club_id,date1):
+    club = Club.objects.get(id=club_id)
+    key={'club':club,'date1':date1}
+    msg = None
+
+    if  request.user.groups.filter(name = 'west_add_meeting').exists():
+        print("current user HAS group 'club_add_meeting_with_date'")
+
+    else:
+        form = ClubMeetingWithDateForm()
+        
+        print("current user doesn't have group 'west_add_meeting'")
+        msg ="Current account is Not allowed to add meeting of club "+ club.name
+        context = {'form': form,'key':key,'msg':msg}
+           
+        return render(request,getHtml('club_add_meeting_with_date') , context)
+            
+
+    if request.method == 'POST':
+        form = ClubMeetingWithDateForm(request.POST)
+        
+        if form.is_valid():
+            post = form.save(commit=False)
+            
+            post.club = club
+            post.date1 = date1
+
+            print("going to use ",post.persontxt, " to get obj")
+            persons = Person.objects.filter(club=club_id,name=post.persontxt)
+
+            if persons.count() != 1:
+                print(" Not found this obj, or logic wrong with more than one objs")
+                
+                msg ="Person not found! Possible name as follows: "
+                list1 =Person.objects.filter(club=club_id).order_by('name')
+                temp = '<br>'
+                for x in list1:
+                    temp += " "+x.name+ ','
+                msg += temp[0:-1]
+                context = {'form': form,'key':key,'msg':msg}
+           
+                return render(request,getHtml('club_add_meeting_with_date') , context)
+            
+            # Already
+            meetings = Meeting.objects.filter(club=club_id,date1=date1,person=persons[0],role2=post.role2)
+            if meetings.count() == 1:
+                print(" Not found this obj, or logic wrong with more than one objs")
+                msg ="Club|Date|Person|Role exists!"
+                context = {'form': form,'key':key,'msg':msg}
+           
+                return render(request,getHtml('club_add_meeting_with_date') , context)
+            
+
+            post.person = persons[0]
+            post.save()
+            return redirect('../')
+            # context = {'obj': post}
+    
+            # return render(request,getHtml('meeting_detail/'+str(post.pk)+'/') , context)
+
+
+        else:
+            # pass
+            print('POST but not valid...')
+            # form = MeetingForm()
+            # context = {'form': form,'key':key}
+            # return render(request,getHtml('club_add_meeting') , context)
+
+    else:
+        # pass
+        form = ClubMeetingWithDateForm()
+        # context = {'form': form}
+    
+    # NOTE: for NOT POST, and also for POST not valid
+    context = {'form': form,'key':key}
+           
+    return render(request,getHtml('club_add_meeting_with_date') , context)
+
 
 
 def add_meeting(request):
@@ -291,55 +383,6 @@ def club_meeting_detail(request,club_id,pk):
 
 
 
-def rolecnt(request):
-    list1 = Data2.objects.exclude(role='---').exclude(role='Absence').values('date1').annotate(headcnt=Count('role',distinct=True))
-    
-
-    # pivot_table = pivot(list1, 'date1', 'member', 'id',aggregation=Count)
-    # for x in pivot_table:
-    #     x['total']=x['Member']+x['Guest']
-  
-    context = {'list1': list1}
-    return render(request,getHtml('rolecnt') , context)
-def rolecnt_date(request,date1):
-    list1 = Data2.objects.exclude(role='---').exclude(role='Absence').filter(date1=date1).values('role').annotate(rolecnt=Count('id')).order_by('role')
-    key={'date1':date1}
-
-    for x in list1:
-        role = x['role']
-        list2 = Data2.objects.exclude(role='---').exclude(role='Absence').filter(date1=date1,role=role)
-        names =''
-        for x2 in list2:
-            # print(x2.name)
-            names += "["+x2.name+"] "
-        x['names']= names
-    # pivot_table = pivot(list1, 'date1', 'member', 'id',aggregation=Count)
-    # for x in pivot_table:
-    #     x['total']=x['Member']+x['Guest']
-  
-    context = {'list1': list1,'key':key}
-    return render(request,getHtml('rolecnt_date') , context)
-
-
-
-def headcnt_date(request,date1):
-    list1 = Data2.objects.exclude(role='---').exclude(role='Absence').filter(date1=date1).values('name','member').annotate(rolecnt=Count('id')).order_by('name')
-    key={'date1':date1}
-
-    for x in list1:
-        name = x['name']
-        list2 = Data2.objects.exclude(role='---').exclude(role='Absence').filter(date1=date1,name=name)
-        roles =''
-        for x2 in list2:
-            # print(x2.role)
-            roles += "["+x2.role+"] "
-        x['roles']= roles
-    # pivot_table = pivot(list1, 'date1', 'member', 'id',aggregation=Count)
-    # for x in pivot_table:
-    #     x['total']=x['Member']+x['Guest']
-  
-    context = {'list1': list1,'key':key}
-    return render(request,getHtml('headcnt_date') , context)
 
 
 def club_date(request,club,date1):
@@ -362,6 +405,47 @@ def club_date(request,club,date1):
     context = {'list1': list1,'key':key}
     return render(request,getHtml('club_date') , context)
 
+def club_meeting(request,club_id,date1):
+    list1 = Meeting.objects.filter(club=club_id,date1=date1).values('person','person__name','person__is_member').annotate(rolecnt=Count('id')).order_by('person__name')
+    club = Club.objects.get(id = club_id)
+    
+    key={'club':club,'date1':date1}
+
+    for x in list1:
+        person = x['person']
+        list2 = Meeting.objects.filter(club=club,date1=date1,person=person)
+        # roles =''
+        # for x2 in list2:
+        #     roles += "["+x2.role2.name+"] "
+        x['roles']= list2
+    # pivot_table = pivot(list1, 'date1', 'member', 'id',aggregation=Count)
+    # for x in pivot_table:
+    #     x['total']=x['Member']+x['Guest']
+  
+    context = {'list1': list1,'key':key}
+    return render(request,getHtml('club_meeting') , context)
+
+
+def club_meeting_role(request,club,date1):
+    list1 = Meeting.objects.filter(club=club,date1=date1).values('role2','role2__name').annotate(rolecnt=Count('id')).order_by('role2__name')
+    club = Club.objects.get(id = club)
+    
+    key={'club':club,'date1':date1}
+
+    for x in list1:
+        role2 = x['role2']
+        list2 = Meeting.objects.filter(club=club,date1=date1,role2=role2)
+        # roles =''
+        # for x2 in list2:
+        #     roles += "["+x2.role2.name+"] "
+        x['names']= list2
+    # pivot_table = pivot(list1, 'date1', 'member', 'id',aggregation=Count)
+    # for x in pivot_table:
+    #     x['total']=x['Member']+x['Guest']
+  
+    context = {'list1': list1,'key':key}
+    return render(request,getHtml('club_meeting_role') , context)
+
 def club_date_role(request,club,date1):
     list1 = Meeting.objects.filter(club=club,date1=date1).values('role2','role2__name').annotate(rolecnt=Count('id')).order_by('role2__name')
     club = Club.objects.get(id = club)
@@ -382,7 +466,8 @@ def club_date_role(request,club,date1):
     context = {'list1': list1,'key':key}
     return render(request,getHtml('club_date_role') , context)
 
-def club_person_list(request,club):
+
+def xxxclub_person_list(request,club):
     # list1 = Meeting.objects.filter(club=club).values('person','person__name').annotate(meetingcnt=Count('date1',distinct=True)).order_by('-meetingcnt','person__name')
     list1 = Person.objects.filter(club=club).order_by('name')
     
@@ -397,6 +482,71 @@ def club_person_list(request,club):
     
     context = {'list1': list1,'key':key}
     return render(request,getHtml('club_person_list') , context)
+
+def club_person_list(request,club):
+    club = Club.objects.get(id=club)
+    key={'club':club}
+    list1 = Person.objects.filter(club=club,is_member=True)
+    list2 = Person.objects.filter(club=club,is_member=False)
+   
+    # list1 = Meeting.objects.values('club','club__name').annotate(meetingcnt=Count('date1',distinct=True),headcnt=Count('person',distinct=True)).order_by('club__name')
+    
+    context = {'key': key,'list1': list1,'list2': list2}
+    # return render(request, 'case002/index.html', context)
+    return render(request, getHtml('club_person_list'), context)
+
+def club_member_guest_list(request,club,is_member):
+    club = Club.objects.get(id=club)
+    key={'club':club,'is_member':is_member,}
+    list1 = Person.objects.filter(club=club,is_member=is_member)
+    # list2 = Person.objects.filter(club=club,is_member=False)
+   
+    # list1 = Meeting.objects.values('club','club__name').annotate(meetingcnt=Count('date1',distinct=True),headcnt=Count('person',distinct=True)).order_by('club__name')
+    
+    context = {'key': key,'list1': list1}
+    # return render(request, 'case002/index.html', context)
+    return render(request, getHtml('club_member_guest_list'), context)
+
+
+def club_member_list(request,club):
+    return club_member_guest_list(request,club,True)
+    
+def club_guest_list(request,club):
+    return club_member_guest_list(request,club,False)
+    
+    
+
+def club_member(request,club,person_id):
+    return club_member_guest(request,club,person_id,True)
+
+def club_guest(request,club,person_id):
+    return club_member_guest(request,club,person_id,False)
+
+def club_member_guest(request,club,person_id,is_member):
+    # person = Person.objects.get(id=person)
+    person = get_object_or_404(Person, pk=person_id)
+    club = get_object_or_404(Club, pk=club)
+    
+    # print(person.__dict__)
+    list1 = Meeting.objects.filter(club=club,person=person).values('date1').annotate(rolecnt=Count('role2'))
+    # club = Club.objects.get(id = club)
+    
+    for x in list1:
+        date1 = x['date1']
+        list2 = Meeting.objects.filter(club=club,person=person,date1=date1)
+        # roles =''
+        # for x2 in list2:
+        #     roles += "["+x2.role2.name+"] "
+        x['role2s']= list2
+    
+
+
+    key={'club':club,'person':person,}
+
+    
+    context = {'list1': list1,'key':key}
+    return render(request,getHtml('club_member_guest') , context)
+
 
 def club_person(request,club,person):
     # person = Person.objects.get(id=person)
@@ -423,88 +573,3 @@ def club_person(request,club,person):
     context = {'list1': list1,'key':key}
     return render(request,getHtml('club_person') , context)
 
-def s1_date(request,date1):
-    list1 = Data2.objects.exclude(role='---').exclude(role='Absence').filter(date1=date1).values('date1','member').annotate(headcnt=Count('id'))
-    list2 = Data2.objects.exclude(role='---').exclude(role='Absence').filter(date1=date1).order_by('-member','name')
-    
-    pivot_table = pivot(list1, 'date1', 'member', 'id',aggregation=Count)
-    for x in pivot_table:
-        try:
-    #your code
-            x['total']=x['Member']+x['Guest']
-        
-        except Exception as ex:
-            # print(ex)
-            x['total']=x['Member']
-        # print(x)
-   
-            
-        # print(x)
-    context = {'list1': pivot_table,'list2':list2}
-    return render(request, getHtml('s1_date'), context)
-
-def s2(request):
-    list1 = Data2.objects.exclude(role='---').exclude(role='Absence').values('name').annotate(pointssum=Sum('points')).filter(pointssum__gt = 0).order_by('-pointssum')
-    context = {'list1': list1}
-    return render(request, getHtml('s2'), context)
-
-def s2_name(request,name):
-    list1 = Data2.objects.exclude(role='---').exclude(role='Absence').filter(name=name).order_by('date1')
-    context = {'list1': list1,'name': name}
-    return render(request, getHtml('s2_name'), context)
-
-def s3(request):
-    list1 = Data2.objects.filter(role__in = ['Ah-counter','GE','Grammarian','TME','TT Evaluator','TT-master','Timer'])
-    pivot_table = pivot(list1, 'date1', 'role', 'name',aggregation=Min)
-    for x in pivot_table:
-        x['Ah']=x['Ah-counter']
-        x['TT_Evaluator']=x['TT Evaluator']
-        x['TT_master']=x['TT-master']
-        # print(x)
-    context = {'list1': pivot_table}
-    return render(request, getHtml('s3'), context)
-
-def best(request):
-    pivot_table = pivot(Best, 'date1', 'title', 'name',aggregation=Min)
-    # for x in pivot_table:
-        # print(x)
-    context = {'list1': pivot_table}
-    return render(request,getHtml('best'), context)
-
-
-def s4(request):
-    list1 = Data2.objects.filter(role__in = ['Speaker','IE']).values('date1').annotate(cnt=Count('id')).order_by('date1')
-    # list1 = Data2.objects.filter(role__in = ['Speaker','IE']).order_by('date1','-role','name')
-    for x in list1:
-        list2 = Data2.objects.filter(date1= x['date1'],role = 'Speaker')
-        list3 = Data2.objects.filter(date1= x['date1'],role = 'IE')
-        speaker = ''
-        ie = ''
-
-        def getNameStr(listx):
-            speaker = ''
-            cnt = 0
-            for x2 in listx:
-                cnt += 1
-                speaker = speaker +"("+str(cnt)+")"+ x2.name+" "
-            return speaker
-
-        # cnt = 0
-        # for x2 in list2:
-        #     cnt += 1
-        #     speaker = speaker +"("+str(cnt)+")"+ x2.name+" "
-
-        x['speaker']=getNameStr(list2)
-        x['ie']=getNameStr(list3)
-
-        # cnt = 0
-        # for x3 in list3:
-        #     cnt += 1
-        #     ie = ie +"("+str(cnt)+")"+ x3.name+" "
-
-        # x['ie']=ie
-    
-    
-        # print(x)
-    context = {'list1': list1}
-    return render(request, getHtml('s4'),  context)

@@ -11,6 +11,11 @@ class ClubMeetingForm(forms.ModelForm):
         model = Meeting
         fields = ('date1','persontxt','role2')
 
+class ClubMeetingWithDateForm(forms.ModelForm):
+    class Meta:
+        model = Meeting
+        fields = ('persontxt','role2')
+
 class MeetingFormV2(forms.ModelForm):
     class Meta:
         model = Meeting

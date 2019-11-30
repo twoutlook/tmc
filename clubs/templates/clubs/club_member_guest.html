@@ -1,0 +1,67 @@
+{% extends 'clubs/base.html' %}
+{% load static %}
+{% load portal_extra %}
+
+
+{% block app_name %}
+{{key.club.name}} TMC
+{% endblock %}
+
+{% block page_name %}
+{{key.person.is_member|true_is_member}}: {{key.person.name}}
+{% if key.person.name == key.person.fullname %}
+
+{% else %}
+{{key.person.fullname}}
+{% endif %}
+{% endblock %}
+
+{% block go_up  %}
+<a class='btn btn-info' href='../'>go Up </a>
+{% endblock %}
+
+{% block content %}
+
+
+
+
+{% if key.person.is_member %}
+
+
+
+
+<div class='as-h4'>member since: {{key.person.member_since|date:'Y-m-d'}}</div>
+{% else %}
+
+{% endif %}
+
+
+
+<table class='gridtable'>
+    <tr>
+
+        <th></th>
+        <th>Meeting</th>
+        <th>Roles</th>
+
+    </tr>
+    {% for x in list1 %}
+    <tr>
+
+        <th>{{forloop.counter}} </th>
+        <td><a href='../../meeting/{{x.date1}}/'>{{x.date1}}</a> </td>
+        <td>
+            {% for x2 in x.role2s %}
+            * {{ x2.role2.name }}<br>
+            {% endfor %}
+
+        </td>
+
+
+
+    </tr>
+
+    {% endfor %}
+</table>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'clubs/base.html' %}
+{% load static %}
+
+{% block title1 %}
+<h1>{{key.club.name}} TMC </h1>
+{% endblock %}
+{% block content %}
+
+
+<a href='../../'>Back to Index</a>
+<hr>
+<h2>Person List </h2>
+<table class='gridtable'>
+    <tr>
+
+        <th></th>
+        <th>Name</th>
+        <th>Fullname</th>
+        <th>Member</th>
+        <th>Member Since</th>
+     
+    </tr>
+    {% for x in list1 %}
+    <tr>
+
+        <th>{{forloop.counter}} </th>
+        <td><a href='{{x.id}}/'>{{x.name}}</a> </td>
+        <td>{{x.fullname}}</a> </td>
+        <td>{{x.is_member}}</a> </td>
+        <td align='center'> {{x.member_since|default_if_none:''}}</a> </td>
+        
+
+
+    </tr>
+
+    {% endfor %}
+</table>
+
+{% endblock %}

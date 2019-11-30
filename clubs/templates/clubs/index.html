@@ -1,9 +1,24 @@
-{% extends 'case005/base.html' %}
+{% extends 'clubs/base.html' %}
 {% load static %}
 {% load humanize %}
+
+
+
+{% block app_name %}
+Toastmasters Club
+{% endblock %}
+
+{% block page_name %}
+Club Index
+{% endblock %}
+
+{% block go_up  %}
+<a class='btn btn-info' href='../about'>About </a>
+{% endblock %}
+
+
 {% block content %}
-<a href='/about'>goto About</a>
-<hr>
+
 
 
 <table class='gridtable'>
@@ -17,8 +32,12 @@
 <tr>
     <th>{{ forloop.counter }}</th>
     <td>{{ x.name }}</td>
-    <td align='center'><a href='{{ x.id }}/'>Meeting</a></td>
-    <td align='center'><a href='person_list/{{ x.id }}/'>Person</a></td>
+    <td align='center'><a href='{{ x.id }}/meeting/'>Meeting</a></td>
+    <td align='center'>
+            <a href='{{ x.id }}/member/'>Member</a>
+            <a href='{{ x.id }}/guest/'>Guest</a>
+    
+    </td>
    
 </tr>
 {% endfor  %}

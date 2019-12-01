@@ -20,6 +20,7 @@ class Person(models.Model):
     phone = models.CharField(max_length=11,default='---') # allow same shortname
     member_since = models.DateField('Member Since', null=True, blank=True)
     note = models.CharField(max_length=100, null=True, blank=True) # but not fullname
+    sponsor_mentor = models.CharField(max_length=10, null=True, blank=True) # but not fullname
     
     def __str__(self):
         if self.is_member:

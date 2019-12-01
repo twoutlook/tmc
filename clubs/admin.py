@@ -42,7 +42,7 @@ class PersonResource(resources.ModelResource):
 
 class PersonAdmin(ImportExportModelAdmin):
     resource_class = PersonResource
-    list_display = ('club', 'name', 'lastname','firstname','fullname','member_type','member_num','email','phone')   
+    list_display = ('club', 'name', 'lastname','firstname','fullname','member_type','member_num','email','phone','sponsor_mentor')   
     list_filter = ['club','is_member',]
     search_fields = ['name','fullname']
   

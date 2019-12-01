@@ -22,6 +22,7 @@ urlpatterns = [
     path('<int:club>/person/', views.club_person_list, name='club_person_list'),
     path('<int:club>/person/<int:person>/', views.club_person, name='club_person'),
     path('<int:club>/member/', views.club_member_list, name='club_member_list'),
+    path('<int:club>/member/start/', views.club_member_list_start, name='club_member_list_start'),
     path('<int:club>/member/<int:person_id>/', views.club_member, name='club_member'),
     path('<int:club>/guest/', views.club_guest_list, name='club_guest_list'),
     path('<int:club>/guest/<int:person_id>/', views.club_guest, name='club_guest'),

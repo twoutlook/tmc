@@ -1,15 +1,17 @@
 {% extends 'clubs/base.html' %}
 {% load static %}
 
-{% block title1 %}
-<h1>{{key.club.name}} TMC  </h1>
+{% block app_name %}
+{{key.club.name}} TMC 
 {% endblock %}
+
+{% block page_name %}
+Meeting {{key.date1}}  by Role
+{% endblock %}
+
 {% block content %}
 
 
-<a href='../'>Back to Index</a>
-<hr>
-<h2>{{key.date1}} Meeting by Role </h2>
 
 
 <table class='gridtable'>

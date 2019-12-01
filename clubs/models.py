@@ -15,6 +15,9 @@ class Person(models.Model):
     member_type = models.CharField(max_length=32,default='---') # allow same shortname
     fullname = models.CharField(max_length=100) # but not fullname
     is_member = models.BooleanField('Is Member ', default=False)
+    member_num = models.CharField(max_length=32,default='---') # allow same shortname
+    email = models.EmailField(max_length=70,null=True,blank=True)
+    phone = models.CharField(max_length=11,default='---') # allow same shortname
     member_since = models.DateField('Member Since', null=True, blank=True)
     note = models.CharField(max_length=100, null=True, blank=True) # but not fullname
     

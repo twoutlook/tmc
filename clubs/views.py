@@ -235,7 +235,7 @@ def club_add_meeting(request,club_id):
 
             post.person = persons[0]
             post.save()
-            return redirect('../meeting/'+str(post.pk)+"/")
+            return redirect('../')
             # context = {'obj': post}
     
             # return render(request,getHtml('meeting_detail/'+str(post.pk)+'/') , context)

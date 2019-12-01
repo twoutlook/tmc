@@ -1,15 +1,19 @@
 {% extends 'clubs/base.html' %}
 {% load static %}
 
-{% block title1 %}
-<h1>{{key.club.name}} TMC  </h1>
+{% block app_name %}
+{{key.club.name}} TMC  
 {% endblock %}
+
+
+{% block page_name %}
+Add Meeting Record
+{% endblock %}
+
+
 {% block content %}
 
 
-<a href='../' class='btn btn-info'>go Upper</a>
-<hr>
-<h2>Add Meeting </h2>
 
 {% if msg %}
 <div class='as-h4'>

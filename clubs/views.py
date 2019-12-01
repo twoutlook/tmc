@@ -579,7 +579,7 @@ def club_member_list_start(request,club):
 @login_required(login_url='/admin/login/?next=/')   
 def club_member_list_start_membertype(request,club,membertype):
     club = Club.objects.get(id=club)
-    key={'club':club,}
+    key={'club':club,'membertype':membertype,}
     list1 = Person.objects.filter(club=club,is_member=True,member_type=membertype)
     # list2 = Person.objects.filter(club=club,is_member=False)
    

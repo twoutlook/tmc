@@ -14,6 +14,8 @@ from django.http import HttpResponseRedirect
 
 from .models import Best
 from .forms import MeetingForm
+from .forms import PersonStartForm
+
 from .forms import ClubMeetingForm
 from .forms import ClubMeetingWithDateForm
 
@@ -256,6 +258,60 @@ def club_add_meeting(request,club_id):
            
     return render(request,getHtml('club_add_meeting') , context)
 
+
+@login_required(login_url='/admin/login/?next=/')
+def club_member_list_start_edit(request,club_id,person_id):
+    club = Club.objects.get(id=club_id)
+    person = Person.objects.get(id=person_id)
+    
+    key={'club':club,'person':person}
+    msg = None
+
+    if  request.user.groups.filter(name = 'west_add_meeting').exists():
+        print("current user HAS group 'west_add_meeting'")
+
+    else:
+        form = ClubMeetingForm()
+        
+        print("current user doesn't have group 'west_add_meeting'")
+        msg ="Current account is Not allowed to add meeting of club "+ club.name
+        context = {'form': form,'key':key,'msg':msg}
+           
+        return render(request,getHtml('club_member_list_start_edit') , context)
+            
+    post = get_object_or_404(Person, pk=person_id)
+  
+    if request.method == 'POST':
+        form = PersonStartForm(request.POST, instance=post)
+        
+        if form.is_valid():
+            post = form.save(commit=False)
+            
+            post.save()
+            return redirect('../../')
+            # context = {'obj': post}
+    
+            # return render(request,getHtml('meeting_detail/'+str(post.pk)+'/') , context)
+
+
+        else:
+            # pass
+            print('POST but not valid...')
+            # form = MeetingForm()
+            # context = {'form': form,'key':key}
+            # return render(request,getHtml('club_add_meeting') , context)
+
+    else:
+        # pass
+        form = PersonStartForm( instance=post)
+        
+        # form = ClubMeetingForm()
+        # context = {'form': form}
+    
+    # NOTE: for NOT POST, and also for POST not valid
+    context = {'form': form,'key':key}
+           
+    return render(request,getHtml('club_member_list_start_edit') , context)
 
 @login_required(login_url='/admin/login/?next=/')
 def club_add_meeting_with_date(request,club_id,date1):
@@ -520,6 +576,18 @@ def club_member_list_start(request,club):
     # return render(request, 'case002/index.html', context)
     return render(request, getHtml('club_member_list_start'), context)
 
+@login_required(login_url='/admin/login/?next=/')   
+def club_member_list_start_membertype(request,club,membertype):
+    club = Club.objects.get(id=club)
+    key={'club':club,}
+    list1 = Person.objects.filter(club=club,is_member=True,member_type=membertype)
+    # list2 = Person.objects.filter(club=club,is_member=False)
+   
+    # list1 = Meeting.objects.values('club','club__name').annotate(meetingcnt=Count('date1',distinct=True),headcnt=Count('person',distinct=True)).order_by('club__name')
+    
+    context = {'key': key,'list1': list1}
+    # return render(request, 'case002/index.html', context)
+    return render(request, getHtml('club_member_list_start'), context)
 
 def club_member_list(request,club):
     return club_member_guest_list(request,club,True)

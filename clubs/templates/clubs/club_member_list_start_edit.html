@@ -1,0 +1,35 @@
+{% extends 'clubs/base.html' %}
+{% load static %}
+
+{% block app_name %}
+start a new club {{key.club.name}} 
+{% endblock %}
+
+{% block page_name %}
+edit member: {{ key.person.name}} {{ key.person.fullname}}
+{% endblock %}
+
+{% block content %}
+
+
+
+{% if msg %}
+<div class='as-h4'>
+Error Message:<br><div style='color:red'> {{msg | safe}}</div>
+</div>
+{% endif  %}
+
+<table class='gridtable'>
+
+<form method="POST" class="post-form" >
+    
+    {% csrf_token %}
+    {{ form.as_table }}
+
+<tr><td colspan='2' align='center'><button type="submit" class="save btn btn-primary">Save</button></td></tr>    
+</form>
+</table>
+
+
+
+{% endblock %}

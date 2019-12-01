@@ -118,7 +118,7 @@ def club_meeting_list(request,club_id):
     
     key={'club':club}
 
-    list1 = Meeting.objects.filter(club=club).values('date1').annotate(headcnt=Count('person',distinct=True))
+    list1 = Meeting.objects.filter(club=club).values('date1').annotate(headcnt=Count('person',distinct=True),reccnt=Count('id'))
    
     context = {'key': key,'list1': list1}
     return render(request,getHtml('club_meeting_list') , context)

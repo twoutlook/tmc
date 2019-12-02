@@ -9,6 +9,7 @@ class Club(models.Model):
 
 class Person(models.Model):
     club = models.ForeignKey(Club, on_delete=models.CASCADE,default=1)
+    code = models.CharField(max_length=3,default = 'w00') # allow same shortname
     name = models.CharField(max_length=32) # allow same shortname
     lastname = models.CharField(max_length=32,default='---') # allow same shortname
     firstname = models.CharField(max_length=32,default='---') # allow same shortname
@@ -24,6 +25,7 @@ class Person(models.Model):
     sponsor_mentor = models.CharField(max_length=10, null=True, blank=True) # but not fullname
     teamleader = models.CharField(max_length=10, null=True, blank=True) # but not fullname
     teamnote = models.CharField(max_length=100, null=True, blank=True) # but not fullname
+    email_checked = models.DateTimeField( null=True, blank=True) # but not fullname
     
     def __str__(self):
         if self.is_member:

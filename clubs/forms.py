@@ -36,7 +36,7 @@ class PersonStartForm(forms.ModelForm):
         
         # club is fixed, not to edit by encoder
         # NOTE based on the account login
-        fields = ( 'lastname', 'firstname', 'email', 'phone', 'member_num', 'officer', 'sponsor_mentor')
+        fields = ( 'lastname', 'firstname', 'email', 'phone', 'member_num', 'officer', 'sponsor_mentor', 'teamleader')
 
 
 class PersonForm(forms.ModelForm):

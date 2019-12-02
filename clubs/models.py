@@ -23,6 +23,7 @@ class Person(models.Model):
     officer = models.CharField(max_length=20, null=True, blank=True) # but not fullname
     sponsor_mentor = models.CharField(max_length=10, null=True, blank=True) # but not fullname
     teamleader = models.CharField(max_length=10, null=True, blank=True) # but not fullname
+    teamnote = models.CharField(max_length=100, null=True, blank=True) # but not fullname
     
     def __str__(self):
         if self.is_member:

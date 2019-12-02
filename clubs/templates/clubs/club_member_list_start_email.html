@@ -1,0 +1,66 @@
+{% extends 'clubs/base.html' %}
+{% load portal_extra %}
+{% block app_name %}
+Start a new club: {{key.club.name}} 
+
+{% endblock %}
+{% block page_name %}
+ Member List (email checked)
+
+{% endblock %}
+
+{% block go_up  %}
+<a class='btn btn-info' href='../../../'>go Up </a>
+{% endblock %}
+
+{% block content %}
+
+
+
+<table class='gridtable'>
+    <tr>
+        <th>*</th>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Chinese</th>
+        <th>Lastname</th>
+        <th>Firstname</th>
+        <th>Email</th>
+        <!-- <th>Phone</th> -->
+        <th>Email Checked</th>
+        <!-- <th>Type</th>
+        <th>Mem. Num</th>
+        <th>Officer</th>
+        <th>Sponsor|Mentor</th>
+        <th>Team Leader</th> -->
+
+    </tr>
+    {% for x in list1 %}
+    <tr>
+        <th>{{forloop.counter}}</th>
+        <!-- <td><a href='{{x.id}}/edit/'>{{x.name}}</a></td> -->
+        <td>{{x.code}}</td>
+        <td>{{x.name}}</td>
+        <td>{{x.fullname}}</td>
+       
+        <td>{{x.lastname}}</td>
+        <td>{{x.firstname}}</td>
+
+        <td>{{x.email|default_if_none:''}}</td>
+        <td>{{x.email_checked|date:'Y-m-d H:i:s'}}</td>
+        <!-- <td>{{x.phone}}</td>
+        
+    
+        <td>{{x.member_type}}</td>
+        <td>{{x.member_num}}</td>
+        <td>{{x.officer|default_if_none:''}}</td>
+        <td>{{x.sponsor_mentor|default_if_none:''}}</td>
+        <td><a href='team/{{x.teamleader}}/'>{{x.teamleader|default_if_none:''}}</a></td> -->
+      
+    </tr>
+
+    {% endfor %}
+
+
+</table>
+{% endblock %}

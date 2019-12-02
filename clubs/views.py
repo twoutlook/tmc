@@ -636,6 +636,19 @@ def club_member_list_start(request,club):
     return render(request, getHtml('club_member_list_start'), context)
 
 @login_required(login_url='/admin/login/?next=/')   
+def club_member_list_start_email(request,club):
+    club = Club.objects.get(id=club)
+    key={'club':club,}
+    list1 = Person.objects.filter(club=club,is_member=True)
+    # list2 = Person.objects.filter(club=club,is_member=False)
+   
+    # list1 = Meeting.objects.values('club','club__name').annotate(meetingcnt=Count('date1',distinct=True),headcnt=Count('person',distinct=True)).order_by('club__name')
+    
+    context = {'key': key,'list1': list1}
+    # return render(request, 'case002/index.html', context)
+    return render(request, getHtml('club_member_list_start_email'), context)
+
+@login_required(login_url='/admin/login/?next=/')   
 def club_member_list_start_membertype(request,club,membertype):
     club = Club.objects.get(id=club)
     key={'club':club,'membertype':membertype,}

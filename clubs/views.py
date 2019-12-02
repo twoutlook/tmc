@@ -15,6 +15,8 @@ from django.http import HttpResponseRedirect
 from .models import Best
 from .forms import MeetingForm
 from .forms import PersonStartForm
+from .forms import PersonStartNoteForm
+
 
 from .forms import ClubMeetingForm
 from .forms import ClubMeetingWithDateForm
@@ -271,7 +273,7 @@ def club_member_list_start_edit(request,club_id,person_id):
         print("current user HAS group 'west_add_meeting'")
 
     else:
-        form = ClubMeetingForm()
+        form = PersonStartForm()
         
         print("current user doesn't have group 'west_add_meeting'")
         msg ="Current account is Not allowed to add meeting of club "+ club.name
@@ -312,6 +314,63 @@ def club_member_list_start_edit(request,club_id,person_id):
     context = {'form': form,'key':key}
            
     return render(request,getHtml('club_member_list_start_edit') , context)
+
+
+@login_required(login_url='/admin/login/?next=/')
+def club_member_list_start_team_edit(request,club_id,team,person_id):
+    club = Club.objects.get(id=club_id)
+    person = Person.objects.get(id=person_id)
+    
+    key={'club':club,'person':person}
+    msg = None
+
+    if  request.user.groups.filter(name = 'west_add_meeting').exists():
+        print("current user HAS group 'west_add_meeting'")
+
+    else:
+        form = PersonStartNoteForm()
+        
+        print("current user doesn't have group 'west_add_meeting'")
+        msg ="Current account is Not allowed to add meeting of club "+ club.name
+        context = {'form': form,'key':key,'msg':msg}
+           
+        return render(request,getHtml('club_member_list_start_note_edit') , context)
+            
+    post = get_object_or_404(Person, pk=person_id)
+  
+    if request.method == 'POST':
+        form = PersonStartNoteForm(request.POST, instance=post)
+        
+        if form.is_valid():
+            post = form.save(commit=False)
+            
+            post.save()
+            return redirect('../../')
+            # context = {'obj': post}
+    
+            # return render(request,getHtml('meeting_detail/'+str(post.pk)+'/') , context)
+
+
+        else:
+            # pass
+            print('POST but not valid...')
+            # form = MeetingForm()
+            # context = {'form': form,'key':key}
+            # return render(request,getHtml('club_add_meeting') , context)
+
+    else:
+        # pass
+        form = PersonStartNoteForm( instance=post)
+        
+        # form = ClubMeetingForm()
+        # context = {'form': form}
+    
+    # NOTE: for NOT POST, and also for POST not valid
+    context = {'form': form,'key':key}
+           
+    return render(request,getHtml('club_member_list_start_note_edit') , context)
+
+
 
 @login_required(login_url='/admin/login/?next=/')
 def club_add_meeting_with_date(request,club_id,date1):

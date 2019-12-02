@@ -27,9 +27,9 @@ Start a new club: {{key.club.name}}
         <th>Email</th>
         <th>Phone</th>
         <th>Type</th>
+        <th>Officer</th>
         <th>Note by Team Leader</th>
         <!-- <th>Mem. Num</th>
-        <th>Officer</th>
         <th>Sponsor|Mentor</th>
         <th>Team Leader</th> -->
 
@@ -48,8 +48,8 @@ Start a new club: {{key.club.name}}
         
     
         <td>{{x.member_type}}</td>
-        <!-- <td>{{x.member_num}}</td>
         <td>{{x.officer|default_if_none:''}}</td>
+        <!-- <td>{{x.member_num}}</td>
         <td>{{x.sponsor_mentor|default_if_none:''}}</td>
         <td><a href='team/{{x.teamleader}}/'>{{x.teamleader|default_if_none:''}}</a></td> -->
         <td>{{x.teamnote|default_if_none:''}}</td>

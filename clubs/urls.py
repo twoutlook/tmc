@@ -24,6 +24,7 @@ urlpatterns = [
     path('<int:club>/member/', views.club_member_list, name='club_member_list'),
     path('<int:club>/member/start/', views.club_member_list_start, name='club_member_list_start'),
     path('<int:club>/member/start/team/<team>/', views.club_member_list_start_team, name='club_member_list_start_team'),
+    path('<int:club_id>/member/start/team/<team>/<int:person_id>/edit/', views.club_member_list_start_team_edit, name='club_member_list_start_team_edit'),
     path('<int:club_id>/member/start/<int:person_id>/edit/', views.club_member_list_start_edit, name='club_member_list_start_edit'),
     path('<int:club>/member/start/<membertype>/', views.club_member_list_start_membertype, name='club_member_list_start_membertype'),
     path('<int:club>/member/<int:person_id>/', views.club_member, name='club_member'),

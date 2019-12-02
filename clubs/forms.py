@@ -38,6 +38,14 @@ class PersonStartForm(forms.ModelForm):
         # NOTE based on the account login
         fields = ( 'lastname', 'firstname', 'email', 'phone', 'member_num', 'officer', 'sponsor_mentor', 'teamleader')
 
+class PersonStartNoteForm(forms.ModelForm):
+    class Meta:
+        model = Person
+        # fields = ('club','name','fullname', 'is_member', 'member_since', 'note')
+        
+        # club is fixed, not to edit by encoder
+        # NOTE based on the account login
+        fields = ( 'teamleader','teamnote',)
 
 class PersonForm(forms.ModelForm):
     class Meta:

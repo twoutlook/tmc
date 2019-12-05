@@ -1,8 +1,10 @@
 from django.urls import path
 from . import views
+from django.views.generic import TemplateView
 app_name = 'clubs'
 
 urlpatterns = [
+    
     path('person_list/', views.person_list, name='person_list'),
     path('person_list/<int:club>/', views.person_list_club, name='person_list_club'),
     path('person_list/<int:club>/<int:person>/', views.person_list_club_person, name='person_list_club_person'),
@@ -40,4 +42,6 @@ urlpatterns = [
     # path('<int:club>/<date1>/', views.club_date, name='club_date'),
     # path('<int:club>/<date1>/role/', views.club_date_role, name='club_date_role'),
     path('', views.index, name='index'),
+
+    path('huadao/', TemplateView.as_view(template_name="huadao/index.html")),
 ]

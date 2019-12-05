@@ -1,15 +1,15 @@
-
+{% load static %}
 <!DOCTYPE HTML>
 <html>
 <head>
 <title>昆山ESBC俱乐部网站</title>
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="{% static 'huadao/css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- <link href='http://fonts.useso.com/css?family=Roboto' rel='stylesheet' type='text/css'> -->
 <!-- <link href='http://fonts.useso.com/css?family=Pacifico' rel='stylesheet' type='text/css'> -->
 <!--slider-->
-<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="all" />
+<link rel="stylesheet" href="{% static 'huadao/css/flexslider.css' %}" type="text/css" media="all" />
 <script src="js/modernizr.js"></script>
 <!-- jQuery -->
  <script src="js/jquery.min.js"></script>
@@ -69,10 +69,10 @@
   	   <div class="banner">
 			<div class="flexslider">
 	          <ul class="slides">
-	            <li><img src="images/banner1.jpg" alt=""/></li>
-	  	    	<li><img src="images/banner2.jpg" alt=""/></li>
-	  	    	<li><img src="images/banner3.jpg" alt=""/></li>
-	  	    	<li><img src="images/banner4.jpg" alt=""/></li>
+	            <li><img src="{% static 'huadao/images/banner1.jpg' %}" alt=""/></li>
+	  	    	<li><img src="{% static 'huadao/images/banner2.jpg' %}" alt=""/></li>
+	  	    	<li><img src="{% static 'huadao/images/banner3.jpg' %}" alt=""/></li>
+	  	    	<li><img src="{% static 'huadao/images/banner4.jpg' %}" alt=""/></li>
 	          </ul>
 	        </div>
 	   </div>

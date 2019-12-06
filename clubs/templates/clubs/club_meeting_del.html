@@ -1,0 +1,49 @@
+{% extends 'clubs/base.html' %}
+{% load static %}
+
+{% block app_name %}
+{{key.club.name}} TMC 
+{% endblock %}
+
+
+{% block page_name %}
+Delete Meeting Record
+{% endblock %}
+
+{% block go_up  %}
+<a class='btn btn-info' href='../../../'>go Up </a>
+{% endblock %}
+
+{% block content %}
+
+
+<table class='gridtable'>
+    <tr>
+        <th>Club</th>
+        <td>{{key.obj.club}}</td>
+    </tr>
+    <tr>
+        <th>Date</th>
+        <td>{{key.obj.date1}}</td>
+    </tr>
+    <tr>
+        <th>Person</th>
+        <td>{{key.obj.person.name}} 
+            {% if obj.person.name == obj.person.fullname %}
+
+            {% else %}
+            {{obj.person.fullname}}
+            {% endif %}
+            
+        </td>
+    </tr>
+    <tr>
+        <th>Role</th>
+        <td>{{key.obj.role2}}</td>
+    </tr>
+    
+
+</table>
+<hr>
+<a href='confirm/' class='btn btn-danger'>Delete this Meeting Record</a>
+{% endblock %}

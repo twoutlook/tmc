@@ -47,7 +47,7 @@
         <!-- <td>{{x.member}} </td> -->
         <td>
                 {% for x2 in x.roles %} 
-               * {{ x2.role2.name }}<br>
+               * {{ x2.role2.name }} <a href='{{x.person}}/{{ x2.role2.id }}/del/' class='btn btn-danger'>del</a> <br>
                 {% endfor %} 
 
 

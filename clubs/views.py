@@ -262,6 +262,116 @@ def club_add_meeting(request,club_id):
 
 
 @login_required(login_url='/admin/login/?next=/')
+def club_meeting_del_confirm(request,club_id,date1,person_id,role_id):
+    club = Club.objects.get(id=club_id)
+    meeting = Meeting.objects.get(club=club_id, date1=date1, person = person_id, role2= role_id)
+    key={'club':club,'obj':meeting,}
+    print("... going to add meeting : ", meeting.__dict__)
+    msg = None
+
+    if  request.user.groups.filter(name = 'west_add_meeting').exists():
+        print("current user HAS group 'west_add_meeting'")
+        context = {'key':key,'msg':msg}
+           
+        # return render(request,getHtml('club_meeting_del') , context)
+        meeting.delete()
+        return redirect('../../../../')
+           
+      
+    else:
+        
+        print("current user doesn't have group 'west_add_meeting'")
+        msg ="Current account is Not allowed to Del meeting of club "+ club.name
+        context = {'key':key,'msg':msg}
+           
+        return render(request,getHtml('club_meeting_del') , context)
+            
+
+@login_required(login_url='/admin/login/?next=/')
+def club_meeting_del(request,club_id,date1,person_id,role_id):
+    club = Club.objects.get(id=club_id)
+    meeting = Meeting.objects.get(club=club_id, date1=date1, person = person_id, role2= role_id)
+    key={'club':club,'obj':meeting,}
+    print("... going to add meeting : ", meeting.__dict__)
+    msg = None
+
+    if  request.user.groups.filter(name = 'west_add_meeting').exists():
+        print("current user HAS group 'west_add_meeting'")
+        context = {'key':key,'msg':msg}
+           
+        return render(request,getHtml('club_meeting_del') , context)
+      
+    else:
+        
+        print("current user doesn't have group 'west_add_meeting'")
+        msg ="Current account is Not allowed to Del meeting of club "+ club.name
+        context = {'key':key,'msg':msg}
+           
+        return render(request,getHtml('club_meeting_del') , context)
+            
+
+    if request.method == 'POST':
+        form = ClubMeetingForm(request.POST)
+        
+        if form.is_valid():
+            post = form.save(commit=False)
+            
+            post.club = club
+
+            print("going to use ",post.persontxt, " to get obj")
+            persons = Person.objects.filter(club=club_id,name=post.persontxt)
+
+            if persons.count() != 1:
+                print(" Not found this obj, or logic wrong with more than one objs")
+                
+                msg ="Person not found"
+                list1 =Person.objects.filter(club=club_id).order_by('name')
+                temp = '<br>'
+                for x in list1:
+                    temp += x.name+ '<br>'
+                msg += temp
+                context = {'form': form,'key':key,'msg':msg}
+           
+                return render(request,getHtml('club_add_meeting') , context)
+            
+            # Already
+            meetings = Meeting.objects.filter(club=club_id,date1=post.date1,person=persons[0],role2=post.role2)
+            if meetings.count() == 1:
+                print(" Not found this obj, or logic wrong with more than one objs")
+                msg ="Club|Date|Person|Role exists!"
+                context = {'form': form,'key':key,'msg':msg}
+           
+                return render(request,getHtml('club_add_meeting') , context)
+            
+
+            post.person = persons[0]
+            post.save()
+            return redirect('../')
+            # context = {'obj': post}
+    
+            # return render(request,getHtml('meeting_detail/'+str(post.pk)+'/') , context)
+
+
+        else:
+            # pass
+            print('POST but not valid...')
+            # form = MeetingForm()
+            # context = {'form': form,'key':key}
+            # return render(request,getHtml('club_add_meeting') , context)
+
+    else:
+        # pass
+        form = ClubMeetingForm()
+        # context = {'form': form}
+    
+    # NOTE: for NOT POST, and also for POST not valid
+    context = {'form': form,'key':key}
+           
+    return render(request,getHtml('club_add_meeting') , context)
+
+
+
+@login_required(login_url='/admin/login/?next=/')
 def club_member_list_start_edit(request,club_id,person_id):
     club = Club.objects.get(id=club_id)
     person = Person.objects.get(id=person_id)
@@ -533,6 +643,7 @@ def club_meeting(request,club_id,date1):
         # for x2 in list2:
         #     roles += "["+x2.role2.name+"] "
         x['roles']= list2
+        x['act']='del'
     # pivot_table = pivot(list1, 'date1', 'member', 'id',aggregation=Count)
     # for x in pivot_table:
     #     x['total']=x['Member']+x['Guest']

@@ -33,7 +33,10 @@ Meeting {{key.date1}}  by Role
         <!-- <td>{{x.member}} </td> -->
         <td>
                 {% for x2 in x.names %} 
-               * {{ x2.person.name }}<br>
+               * {{ x2.person.name }}
+               {{ x2.person.lastname }}
+               
+               <br>
                 {% endfor %} 
 
 

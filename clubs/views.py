@@ -1,3 +1,6 @@
+# https://docs.djangoproject.com/en/2.2/_modules/django/contrib/auth/hashers/#make_password
+import django.contrib.auth.hashers
+
 from django.shortcuts import render,get_object_or_404
 from django.db.models import Count, Sum, Max, Min
 from django.views.generic import ListView, CreateView, UpdateView
@@ -31,6 +34,10 @@ from django.shortcuts import redirect
 # https://pypi.org/project/django-pivot/
 from django_pivot.pivot import pivot
 from django_pivot.histogram import histogram
+
+# testing1210
+# https://stackoverflow.com/questions/12921789/django-import-auth-user-to-the-model
+from django.contrib.auth.models import User
 
 app = 'clubs'
 def getHtml(html):
@@ -600,6 +607,53 @@ def meeting_detail(request,pk):
   
     context = {'obj': obj}
     return render(request,getHtml('meeting_detail') , context)
+
+def testing1210(request):
+    list1 = User.objects.all()
+    members = Person.objects.filter(club__name = 'West', is_member = True)
+    print (" to list West member as follows, ")
+    cnt = 0
+    for x in members:
+        cnt += 1
+        print(cnt,x.name,x.phone)
+
+        list2 = User.objects.filter(username=x.phone)
+        if list2:
+            obj =list2[0]
+            obj.is_staff = True
+        # https://docs.djangoproject.com/en/2.2/topics/auth/passwords/
+        # obj.password='xxx'
+
+        # https://www.laurivan.com/change-a-django-password-manually/
+            obj.set_password(x.phone)
+            obj.save()
+
+        else: # Not yet created
+            obj = User(username=x.phone,first_name=x.name)
+            obj.is_staff = True
+            obj.set_password(x.phone)
+            obj.save()
+
+            # print (list2[0], ' was created!')
+            
+
+    # obj = User(username='123',first_name='user123')
+    # try:
+    #     obj.save()
+    # except Exception as e:
+    #     print("nicely ...",e)
+    #     obj = User.objects.get(username='123')
+    #     obj.first_name ='aaa'
+    #     obj.is_staff = True
+    #     # https://www.laurivan.com/change-a-django-password-manually/
+    #     obj.set_password('123')
+    #     obj.save()
+    
+
+    context = {'list1': list1}
+    return render(request,getHtml('testing1210') , context)
+
+
 
 def club_meeting_detail(request,club_id,pk):
     obj = Meeting.objects.get(pk=pk)

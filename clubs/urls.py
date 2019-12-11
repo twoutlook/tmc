@@ -45,6 +45,10 @@ urlpatterns = [
     # path('<int:club>/<date1>/', views.club_date, name='club_date'),
     # path('<int:club>/<date1>/role/', views.club_date_role, name='club_date_role'),
     path('', views.index, name='index'),
+    path('testing1210', views.testing1210, name='testing1210'),
 
-    path('huadao/', TemplateView.as_view(template_name="huadao/index.html")),
+    # path('huadao/', TemplateView.as_view(template_name="huadao/index.html")),
+    path('vision/', TemplateView.as_view(template_name="vision/vision.html")),
+    path('vision/member/', TemplateView.as_view(template_name="vision/member.html")),
+    path('vision/saa/', TemplateView.as_view(template_name="vision/saa.html")),
 ]

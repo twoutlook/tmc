@@ -1,0 +1,53 @@
+{% extends 'clubs/base.html' %}
+{% load static %}
+
+{% block app_name %}
+Testing1210
+{% endblock %}
+
+{% block page_name %}
+to import TMC members to be users of Django
+{% endblock %}
+
+{% block content %}
+
+Here is my note...
+<table class='gridtable'>
+
+{% for x in list1 %}
+<tr>
+    <td>
+        {{x.username}}
+    
+    </td>
+    <td>
+        {{x.is_superuser}}
+    
+    </td>
+    <td>
+        {{x.is_active}}
+    
+    </td>
+    <td>
+        {{x.first_name}}
+    
+    </td>
+    <td>
+        {{x.last_name}}
+    
+    </td>
+    <td>
+        {{x.last_login|date:'Y-m-d H:i:s' }}
+    
+    </td>
+    <td>
+        {{x.password }}
+    
+    </td>
+        
+</tr>
+
+{% endfor %}
+</table>
+
+{% endblock %}

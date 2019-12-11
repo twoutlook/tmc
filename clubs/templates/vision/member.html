@@ -1,0 +1,61 @@
+{% extends 'clubs/base.html' %}
+{% load portal_extra %}
+{% block app_name %}
+online Django-TMC
+{% endblock %}
+{% block page_name %}
+Member
+
+{% endblock %}
+
+{% block go_up  %}
+<a class='btn btn-info' href='../'>go Up </a>
+{% endblock %}
+
+{% block content %}
+<ul>
+   
+    
+    <li>
+        能維護個人profile
+    </li>
+    <li>
+        能查看在所有的 club meeting 記錄
+    </li>
+    <li>
+        能增刪改 club meeting 的記錄
+        <ul>
+            <li>
+                限於個人的
+               </li>
+               <li>
+                指定的日期
+               </li>
+                  <li>
+                可選的角色
+            </li>
+            <li>
+                個人的備註
+            </li>
+            
+        
+        </ul>
+    </li>
+    <li>
+        登入時，如果是多個club 會員
+        <ul>
+            <li>
+                要能夠切換不同的club進行維護。
+        
+                
+            </li>
+            <li>
+                要能一次性查詢參加的會議, 以日期排序。
+            </li>
+        </ul>
+
+    </li>
+   
+
+</ul>
+{% endblock %}

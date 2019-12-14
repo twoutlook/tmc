@@ -41,11 +41,12 @@ INSTALLED_APPS = [
     # 'fin001',
     # 'hr001',
     'portal',
-    'simple', #https://simpleisbetterthancomplex.com/tutorial/2018/01/29/how-to-implement-dependent-or-chained-dropdown-list-with-django.html
-    'chained', # 2019-11-29 to test chained dropdown
+    'reading',
+    # 'simple', #https://simpleisbetterthancomplex.com/tutorial/2018/01/29/how-to-implement-dependent-or-chained-dropdown-list-with-django.html
+    # 'chained', # 2019-11-29 to test chained dropdown
     # 'case001',
     'clubs',
-    'case005',
+    # 'case005',
     # 'note', # 加入 note App
     'import_export', # 加入 import_export App
     'django.contrib.humanize', # 給 template 使用 {% load humanize %}

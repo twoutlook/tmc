@@ -14,7 +14,8 @@ urlpatterns = [
     path('get_name/', views.get_name, name='get_name'),
     path('input_phone/', views.input_phone, name='input_phone'),
     path('input_phone/phone_result/', views.phone_result, name='phone_result'),
-    path('', views.index, name='index'),
+    # path('', views.index, name='index'),
+    # path('', views.index, name='index'),
   
 ]
 # https://wsvincent.com/django-image-uploads/

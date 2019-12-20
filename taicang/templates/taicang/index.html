@@ -1,0 +1,24 @@
+{% extends 'taicang/base.html' %}
+
+{% block page_name  %}聚會日期和人數{% endblock %}
+
+{% block go_up  %}
+<a class='btn btn-info' href='about/'>about </a>
+{% endblock %}
+
+
+{% block content %}
+<ul>
+
+{% for x in list1 %}
+
+<li>
+<a href='date/{{x.date1}}/' >{{x.date1}}</a> : {{x.headcnt}}人<br>
+</li>
+
+
+{% endfor  %}
+</ul>
+
+
+{% endblock %}

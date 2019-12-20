@@ -29,7 +29,9 @@ urlpatterns = [
     # path('simple/', include('simple.urls')), 
     # path('clubs/', include('clubs.urls')), 
     path('', include('clubs.urls')), 
+    path('taicang/', include('taicang.urls')), 
     path('reading/', include('reading.urls')), 
+    path('blog/', include('blog.urls')), 
     # path('', include('case005.urls')), 
     
     # path('', include('portal.urls')), 

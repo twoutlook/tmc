@@ -1,0 +1,29 @@
+{% extends 'reading/base.html' %}
+
+{% block page_name  %}{{key.name}}  參加的會議{% endblock %}
+
+{% block go_up  %}
+<a class='btn btn-info' href='../../'>index</a>
+{% endblock %}
+
+
+{% block content %}
+
+
+<ul>
+
+{% for x in list1 %}
+
+<li>
+    <a href='../../date/{{x.date1}}/' >{{x.date1}}</a> &nbsp;&nbsp;
+    {{x.note|default_if_none:''}}
+
+</li>
+
+
+
+{% endfor  %}
+</ul>
+
+
+{% endblock %}

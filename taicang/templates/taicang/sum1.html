@@ -1,0 +1,37 @@
+{% extends 'taicang/base.html' %}
+
+{% block page_name  %}{{key.name}} Sum by Club {% endblock %}
+
+{% block go_up  %}
+<a class='btn btn-info' href='../../'>index</a>
+{% endblock %}
+
+
+{% block content %}
+
+
+<ul>
+
+    {% for x in sum1 %}
+    {% ifchanged x.club %}
+    <hr>
+    <div class='as-h3'>{{x.club}} &nbsp;</div>
+
+    {% else %}
+
+    {% endifchanged %}
+
+
+
+    &nbsp; &nbsp; &nbsp;{{x.feetxt}} &nbsp;
+    {{x.idcnt}}
+
+    <br>
+
+
+
+    {% endfor  %}
+</ul>
+
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'reading/base.html' %}
+{% load portal_extra %}
+
+{% block page_name  %}{{key.date1}}  參加的人員{% endblock %}
+
+{% block go_up  %}
+<a class='btn btn-info' href='../../'>index</a>
+{% endblock %}
+
+
+{% block content %}
+
+
+<ul>
+
+{% for x in list1 %}
+
+<li>
+    <a href='../../name/{{x.name}}/' >{{x.name}}</a> &nbsp;&nbsp;
+    {{x.note|default_if_none:''}}
+
+</li>
+
+
+
+{% endfor  %}
+</ul>
+
+
+{% endblock %}

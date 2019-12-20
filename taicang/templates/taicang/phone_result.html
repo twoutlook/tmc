@@ -1,0 +1,26 @@
+{% extends 'taicang/base.html' %}
+
+{% block page_name  %}Phone : {{phone}} {% endblock %}
+
+{% block go_up  %}
+<a class='btn btn-info' href='../'>Query Again</a>
+{% endblock %}
+
+
+{% block content %}
+
+{% if list1 %}
+{% for x in list1 %}
+<div class='as-h2'>{{ x.name }}</div>
+<div class='xxxas-h3'>{{ x.clubtxt }}</div>
+<div class='as-h3'>{{ x.club }}</div>
+<div class='xxxas-h3'>{{ x.note }}</div>
+<div class='xxxas-h3'>{{ x.feetxt}}</div>
+<div class='xxxas-h4'>{{ x.dt|date:'Y-m-d H:i' }}</div>
+
+{% endfor  %}
+{% else %}
+No record found!
+{% endif %}
+
+{% endblock %}

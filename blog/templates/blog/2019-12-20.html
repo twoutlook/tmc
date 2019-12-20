@@ -1,0 +1,151 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+<!-- {% load km001_extra %} -->
+
+{% block app_name %}
+Blog 2019-12-19
+
+{% endblock%}
+
+{% block page_name %}
+Django 3.0 Tutorial 02
+{% endblock%}
+
+
+{% block go_up  %}
+<a class='btn btn-info' href='../info/'>回到上層 </a>
+{% endblock %}
+
+{% block content %}
+
+<p>
+這是根據 Django 3.0 入門教程第二課先寫下的備註。
+我是從 Django 版本2 開始使用的，一開始是實驗性質的，當我發現有些功能我沒找到，或是沒有懂得怎麼用時，
+習慣性的退縮回到 PHP 的環境，因為之前的 PHP 開發經驗已經成熟還寫了企業內部的框架，談不上一流二流，總是可以應用實際上的需求。
+反覆了不下十次，一直到幾年前，突破了這個障礙，一個小型微型的項目，成功讓用戶用自行上 Django Admin 後台，導入每日的 Excel 原始數據，即時在頁面可以看到管理報表。
+而後就往 Django 的路上走，PHP 就越來越少再碰了。
+</p>
+
+<p>
+        我是從 Django 版本2 開始使用的，一開始是實驗性質的，當我發現有些功能我沒找到，或是沒有懂得怎麼用時，
+        習慣性的退縮回到 PHP 的環境，反覆了不下十次，一直到幾年前，突破了這個障礙，一個小型微型的項目，成功讓用戶用自行上 Django Admin 後台，導入每日的 Excel 原始數據，即時在頁面可以看到管理報表。
+        而後就往 Django 的路上走，PHP 就越來越少再碰了。
+        </p>
+        
+
+
+參考文檔： https://docs.djangoproject.com/en/3.0/intro/tutorial02/
+
+<h3>1. Database setup</h3>
+<ul>
+    <li>對於初學和小型項目的部署，可以直接使用預設的 SQLite 。</li>
+    <li>CentOS 7.6 打包的 SQLite 版本不能滿足 Django 2.2 起的版本
+        <ul>
+            <li>官網在版本升級有說明，請參考https://docs.djangoproject.com/en/3.0/releases/2.2/</li>
+            <li>解決方案請先參考，https://bbs.huaweicloud.com/blogs/139553 升級 sqlite3 版本 至 3.30</li>
+            <li>詳細的原因和其它的做法，另外單獨說明。</li>
+        </ul>
+
+
+    </li>
+
+</ul>
+
+<h3>2. Create models</h3>
+<ul>
+    <li>數據模型
+        <ul>
+            <li>
+
+                models.CharField(max_length=200)
+            </li>
+            <li>
+                models.DateTimeField('date published')
+            </li>
+            <li>
+                models.ForeignKey(Question, on_delete=models.CASCADE)
+            </li>
+            <li>
+                models.IntegerField(default=0)
+            </li>
+        </ul>
+    </li>
+    <li>
+
+        在範例的數據模型，使用了如上的基本類型。
+        Django 的強項之一，就是開發人員，不必花太多，甚至不必花時間去寫 SQL 語句。
+
+    </li>
+    <li>
+
+        在當今的技術裡，ORM，Object-Relational Mapping，並非首創，然而 Django 提供了相當可信懶的機制以及容易上手的方式來使用。
+
+    </li>
+
+
+
+</ul>
+
+
+<h3>3. Activate models</h3>
+<ul>
+
+    <li>有兩種寫法
+        <ul>
+
+            <li>'polls.apps.PollsConfig',</li>
+            <li>'polls',</li>
+        </ul>
+    </li>
+    <li>你的選擇
+            <ul>
+    
+                <li>第一種寫法，精確到引用的 class 名稱，可以彈性修改 name 的值。</li>
+                <li>第二種簡易寫法，'polls',在預設的機制下，可以運行，就不在這裡操心。</li>
+            </ul>
+        </li>
+    
+</ul>
+
+
+
+<h3>4. Play shell</h3>
+<ul>
+        <li>
+                在命令行，以互動的方式，快速驗証數據模型和數據庫之間的關係。
+        
+        
+            </li>
+            <li>
+                    看似方便，從編程人員的好的工作習慣來講，要權衡(1)可再使用的腳本和(2)一次性打字，之間的性價比。
+                    
+             
+             
+                 </li>
+                 <li>
+                        做成腳本可放在 view 裡，使用 print 來查看。
+                 進階做法，可以如同 manage.py runserver ，寫成像 runserver 的腳本。
+                 原做上，當我一次性導入項目的 Excel 檔案時，我會寫成類型 manage.py import-001 的腳本。
+                 這部份，可以定個 12 單元來講解和練習。
+
+                 
+                 
+                     </li>
+                              
+</ul>
+
+
+
+<h3>5. Start to use Django Admin</h3>
+<ul>
+        <li> Django的強項之一，就是有立即可用的後台，除了最基本的 user/group ，可以快速顯示所有的基本數據，搭配後台權限做到表單級別的增刪改查。</li>
+        <li> 要不需要寫代碼的基礎上，上述的功能已經很強了。如果你有表單列表，例如會員名單，其中會員分屬不同俱樂部，各俱樂部的負責人員只允許有權限增刪改查各自的俱樂部會員的話，就需要客製實現。說不定也有人已經寫好了，可以安裝套用。</li>
+        <li> Create a superuser，這個功能不儘是初次使用，當你忘了原本的密碼時，可以再建個超級用戶登入後修改。</li>
+    <li> Login as superuser，在部署的經驗裡，數據庫的權限是常碰到的主題，我們總是希望按準則只開放夠用的權限。部署後一定要登入後台，確認有沒有遇到前台頁面能取用數據，但無法登入後台的情況。</li>
+    <li> Show polls app in the Django Admin，在這裡要注意，新的app，在一般情況總是要先在 settings 和 urls 加好，除了數據庫有影響，templates 模版的使用也會有影響的。 </li>
+    <li> Explore ready-to-use admin function，官網的入門教程，這部分的延伸是第7課，也就是說，可以先訪問，https://docs.djangoproject.com/en/3.0/intro/tutorial07/，可以立即使用後台強大的功能，方便自主在後台添加模擬數據，以供在頁面仿真顯示。</li>
+</ul>
+
+
+
+{% endblock  %}

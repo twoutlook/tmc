@@ -40,8 +40,10 @@ INSTALLED_APPS = [
 
     # 'fin001',
     # 'hr001',
+    'taicang',
     'portal',
     'reading',
+    'blog',
     # 'simple', #https://simpleisbetterthancomplex.com/tutorial/2018/01/29/how-to-implement-dependent-or-chained-dropdown-list-with-django.html
     # 'chained', # 2019-11-29 to test chained dropdown
     # 'case001',

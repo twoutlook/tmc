@@ -1,0 +1,127 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+<!-- {% load km001_extra %} -->
+
+{% block app_name %}
+Blog 2019-12-19
+
+{% endblock%}
+
+{% block page_name %}
+Django 3.0 Tutorial 01
+{% endblock%}
+
+
+{% block go_up  %}
+<a class='btn btn-info' href='../info/'>回到上層 </a>
+{% endblock %}
+
+{% block content %}
+參考文檔： https://docs.djangoproject.com/en/3.0/intro/tutorial01/
+
+<h3>1. Prepare a virtual environment</h3>
+<ul>
+    <li>Python 3.6 </li>
+    <li>Django 3.0</li>
+</ul>
+
+<h3>2. Create a new project</h3>
+<ul>
+    <li>
+        <pre>django-admin startproject mysite</pre>
+    </li>
+</ul>
+
+
+
+<h3>3. Run development server</h3>
+<ul>
+    <li>
+        <pre>./manage.py runserver</pre>
+
+
+    </li>
+</ul>
+
+
+
+<h3>4. Create the Polls app</h3>
+<ul>
+    <li>
+        <pre>./manage.py startapp polls</pre>
+
+
+    </li>
+</ul>
+
+
+
+<h3>5. Write the first view</h3>
+<ul>
+    <li> polls/views.py</li>
+    <li> polls/urls.py</li>
+    <li> mysite/urls.py</li>
+</ul>
+
+
+
+<hr>
+<h3><br>1. Prepare a virtual environment</h3>
+和官網教程, https://docs.djangoproject.com/en/3.0/intro/tutorial01/，著眼不同，
+我們會一開始就在 Python 虛擬環境操作 。<br>
+這部份可以參考 https://tutorial.djangogirls.org/en/django_installation/
+，和其它視頻教程。<br>
+官網要專心在Django的部份，我們要同時考慮到開發及部署的正確有效的工作習慣。
+<p>
+        <br>在 Mac 環境啟動虛擬環境並安裝Django
+<pre>
+python3 -m venv venv
+source venv/bin/activate
+pip install django
+</pre>
+
+</p>
+
+<h3><br>2. Create a new project</h3>
+<p>
+在版本 3.0 增加了
+mysite/asgi.py，
+這是 mysite/wsgi.py 的進階版，是部署到正式環境的時候用的。
+</p>
+
+<p>
+   如果我們用 mysite 為項目名稱，系統會自動創建同名的 mysite 兩層目錄。
+   外層是可以更改，例如有三個項目分別進行，可以改命為site001,site002,site003。
+   內層的目錄，實做上是不建議改命，不是不能改，而是要併同改好幾個地方，可以自行實驗，但實做時簡單不要改，避開無謂的部署困擾。
+        </p>
+        
+<h3><br>3. Run development server</h3>
+啟動開發用的服務器非常方便，雖然和正式環境有些微差異，夠用的。
+這個開發用的服務器是不能用來當正式環境的服務器的，其中一個原因就是不預期的錯誤會讓服務器跳機，這特性在開發時很有用，但是不適合在正式運行的環境。
+
+
+
+<h3><br>4. Create the Polls app</h3>
+官網強調 mysite 是 project, polls 是 app。
+我們遵循這種叫法。
+根據實做經驗，有時候為了方便複製整個 app 的 templates,urls 和 views等等。
+也會直接一檔案夾的方式直接複製改名，例如複製整個 polls 為 polls2。
+這時候要立即同時更改幾個地方，
+包括
+<ul>
+        <li>apps.py Config class 名稱本身和其 name 值。</li>
+        <li>urls.py 的 app_name 值。</li>
+</ul>
+
+
+
+<h3><br>5. Write the first view</h3>
+在這第一課，清楚提到幾個要點，
+<ul>
+        <li> 第一是以 mysite 為名所創建的項目，其網址根目錄設置就是在 mysite/urls.py。      </li>
+        <li> 第二是 view 可以直接顯示網頁內容，儘管大多數情況我們會用 templates。      </li>
+       
+</ul>
+
+
+{% endblock  %}

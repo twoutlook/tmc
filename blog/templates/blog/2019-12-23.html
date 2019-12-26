@@ -1,0 +1,128 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+<!-- {% load km001_extra %} -->
+
+{% block app_name %}
+Blog 2019-12-23
+
+{% endblock%}
+
+{% block page_name %}
+2019-12-23, Django 3.0 Tutorial 05
+{% endblock%}
+
+
+{% block go_up  %}
+<a class='btn btn-info' href='../info/'>回到上層 </a>
+{% endblock %}
+
+{% block content %}
+
+
+<p>
+    測試是軟件開發不可或欠的一個環節，開發人員最少都要按照範例數據在自己開發的應用上運行看看。
+    進一步要設計可能出錯的輸入，看開發的應用如何應對。
+    現代的應用推出特別講求時效性，在工期緊迫的情況下，要將所有的 bug 清除，總是一個挑戰。
+    簡單地說，測試要自動化。應用通過所有的測試，並不保証沒有問題。然而，沒有通過測試，肯定是有問題。
+
+</p>
+
+<p>
+    對初學者而言，這一課和上一課剛好有個對比。上一課的官網入門教程著墨很少，但是該學的很多，對於練習這入門教程五次以內的，我都覺得可以先照抄範例代碼，先能運行起來，可以按設計的問題進行最簡單的投票
+    。這一課，相對內容是比較多，尤其是說明的部份。
+    如官網入門教程有提到，這個官網入門教程並非單獨設計給初學者，也不是簡單明瞭說怎麼做，
+    而是在傳递一個 Django 理念。
+
+    因此在你練習這入門教程五次之內，就算不做這段，或是局部做做，也可以。
+    反正當你被要求，或是體會到要自主加入測試時，總是可以再回到裡參照實做。
+
+</p>
+
+
+參考文檔： https://docs.djangoproject.com/en/3.0/intro/tutorial05/
+
+<h3>1. Automated Testing</h3>
+<ul>
+    <li>What are automated tests? 只要你有手工測試的部分，就應該做成自動測試。</li>
+    <li>Why you need to create tests？
+        <ul>
+            <li>Tests will save you time
+                一兩次手工測試可能不怎麼樣，但隨著應用慢慢完整複雜，該測試的東西會遠比你想像的多，手工測試消耗的時間也比你預期的要多。
+            </li>
+            <li>Tests don’t just identify problems, they prevent them
+                這是很好的一個觀念。測試不僅僅是糾出問題，而且是用來事先避開這些問題。
+            </li>
+            <li>Tests make your code more attractive
+                要進入一流二流的層次，沒有測試模塊是上不去的。 </li>
+            <li>Tests help teams work together
+                單人開發和多人協同開發都是需要測試模塊的。
+            </li>
+
+
+        </ul>
+    </li>
+
+
+</ul>
+
+<h3>2. Basic testing strategies</h3>
+<ul>
+    <li>先有測試才寫代碼。</li>
+    <li>寫代碼到一個程度察覺測試的重要性。</li>
+</ul>
+
+<h3>3. First test</h3>
+<ul>
+    <li>Identify a bug
+        不管是故意，或是一開始沒有考慮到。
+        以範例代碼投票為例，
+        最近發佈問題的 Question.was_published_recently()回的值為
+        self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+        <br>
+        我的理解習慣會是
+        timezone.now() - self.pub_date &lt;= datetime.timedelta(days=1)
+        <br>
+        表示，發佈時間到現在是在一天(含)之內，這個(含)正常就是精確到一秒，問題不大。
+        問題是在於，如果我們允許問題先事出好，然後設定要發佈的時間，那麼這個字面上'最近發佈的'，就會不小心暴出還沒正式發佈的。
+    </li>
+    <li>Create a test to expose the bug
+        因此類似的問題，我們要設定一個測試的機制，如果發佈的時間是在，好比說是30天後，
+        那麼我們會期望
+        was_published_recently()回的值為假。
+        換一個講法，我要你寫一個功能，判斷某個問題的發佈日期是否最近，
+        我們約定好了，最近就是一天之內。
+        你可能要問，那麼發佈日期如果是在下個月，算不算？
+        事先回答你這個問題，我要求你的代碼要通過這個測試：如果發佈日期是在一個月後，不可以認為是最近發佈。
+        更精確的測試是，只要發佈日期時間是在未來，一律不算最近發佈。
+
+    </li>
+    <li>Run this test
+        按照我們在 https://docs.djangoproject.com/en/3.0/intro/tutorial02/
+        的寫法，根據測試，是不會通過的。
+        這個與期跟開發人員說你這個功能沒寫好，不如讓TA自己測試測不過。
+        大家不傷情感也節省寶貴時間。
+    </li>
+    <li>Fixing the bug
+        官網教程接著教我們修正剛才所說的代碼，改成
+        return now - datetime.timedelta(days=1) &lt;= self.pub_date &lt;= now
+        這時候再測試就會通過。
+    </li>
+    <li>More comprehensive tests
+        官網教程繼續教我再多做兩個測試。
+        一個是超過1天零1秒，一個是23小時59分59秒。
+    </li>
+
+
+</ul>
+<h3>4. Test a view</h3>
+<ul>
+    <li>測試也可以模擬用戶訪問任意頁面。
+        這可以在shell做，也可以寫到測試模塊。
+    </li>
+    <li>測試的專題，在這裡，
+        https://docs.djangoproject.com/en/3.0/topics/testing/
+    </li>
+
+</ul>
+
+{% endblock  %}

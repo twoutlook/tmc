@@ -40,6 +40,8 @@ INSTALLED_APPS = [
 
     # 'fin001',
     # 'hr001',
+    'blue',
+    'kifa',
     'taicang',
     'portal',
     'reading',

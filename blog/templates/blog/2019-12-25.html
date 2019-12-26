@@ -1,0 +1,83 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+<!-- {% load km001_extra %} -->
+
+{% block app_name %}
+Blog 2019-12-25
+
+{% endblock%}
+
+{% block page_name %}
+2019-12-25, Django 3.0 Tutorial 07
+{% endblock%}
+
+
+{% block go_up  %}
+<a class='btn btn-info' href='../info/'>回到上層 </a>
+{% endblock %}
+
+{% block content %}
+
+
+<p>
+    今天的 Django 官網入門教程 7，我個人是建議可以緊接著放在 2 之後。
+    更能讓初學者感受標準後台的威力。早些年我花很多時間在 phpMyAdmin，覺得能夠處理和管理數據庫很酷，寫些SQL語句來查詢那更是了不得。
+    這個成為我接受 Django 的障礙，因為 Django 的後台雖然立即可用，但限於單表的特定筛选查詢，單筆數據的增改，有時候想要清除掉整個Table，介面上只能批次刪除若干，最要命的是，無法在後台直接執行SQL語句。
+    如果真要用生活做比喻，我都會開手排車，卻硬生生要我開自排車。
+
+</p>
+
+<p>
+    如果說有什麼領悟，記得有人講到要 unlearn and relearn。
+</p>
+
+
+參考文檔： https://docs.djangoproject.com/en/3.0/intro/tutorial07/
+
+<h1>2019-12-25, Django 3.0 Tutorial 07</h1>
+
+<h3>1. Customize the admin form</h3>
+<ul>
+    <li>後台的核心是列出 App 裡在 admin.py 設定的數據模型，印對成的數據庫table。</li>
+    <li>每個數據模型先有列表，可以自定義要顯示的欄位。可以增刪。點擊單筆，可以進行編輯。
+    </li>
+    <li>單筆的顯示可以調整欄位，可以分組，分組的可以操作局部隱藏等等。
+    </li>
+
+
+</ul>
+
+<h3>2. Adding related objects</h3>
+<ul>
+    <li>當數據有關連，在編輯模式下，可以顯示子表單。</li>
+    <li>以企業裡最常見的採購單為例，一張採購單可以有多個品項。一般口頭上我們用單頭和單身來說。</li>
+    <li>單身可以是單筆各欄位而上而下，也可以調整成像是Excel格式，單筆仍是由上而下，欄位則由左而右。</li>
+
+</ul>
+
+<h3>3. Customize the admin change list</h3>
+<ul>
+    <li>列表部份的欄位顯示，其表達方式也是可以調式的，尤其是真假值，和日期格式。
+    </li>
+
+    <li>調試日期和時間，有些是要在或是可以在 settings.py 完成。但基於一些限制，在之前某些版本有發生如果將預設的英文改為中文，可能會失效。
+
+    </li>
+
+    <li>事實上，Django 強大的地方是，右側的標準筛选也可以客製。我們會另有小課說明示範。
+
+    </li>
+    <li>日期我都習慣使用ISO格式，https://www.iso.org/iso-8601-date-and-time-format.html，並不適會放在右側的筛选，但是可以當成上方的查詢。
+    </li>
+
+
+</ul>
+
+<h3>4. Customize the admin look and feel</h3>
+<ul>
+    <li>基本上，在後台的每一個元素都可以客制。想要直接去看代碼，直接改，這是傳統的暴力法，不建議。
+        要細心找文檔，按規則去改，後續我們會有單元實做。後台以初學者而言，到這裡就夠用了。
+    </li>
+</ul>
+
+{% endblock  %}

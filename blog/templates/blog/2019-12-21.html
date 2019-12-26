@@ -1,0 +1,110 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+<!-- {% load km001_extra %} -->
+
+{% block app_name %}
+Blog 2019-12-21
+
+{% endblock%}
+
+{% block page_name %}
+Django 3.0 Tutorial 03
+{% endblock%}
+
+
+{% block go_up  %}
+<a class='btn btn-info' href='../info/'>回到上層 </a>
+{% endblock %}
+
+{% block content %}
+
+
+<p>
+    第三課相對是內容比較多的，官網入門教程有帶到的主題，要多練習才能和理論結合。
+    對前幾次的練習，是可以先簡易略過 HttpResponse 的部份，沒有真的懂 HttpResponse(template.render(context, request))，也沒關係。
+    <br>重點在 render(request, 'polls/index.html', context) 是最典型的可以上手合乎正式環境需求。
+</p>
+
+
+
+參考文檔： https://docs.djangoproject.com/en/3.0/intro/tutorial03/
+
+<h3>1. Practice views: HttpResponse</h3>
+<ul>
+    <li>View 和 URL 是要成對完成的。 </li>
+    <li>開發的時候如果是先寫 URL，這時候 development server 會報錯，因為沒有應對的 view。
+        這個入門教程是精心制做的，要反覆練習多次，更能體會到好的工作習慣。
+    </li>
+    <li>在還沒引入 template 的概念之前，HttpResponse 的寫法和基本的 PHP 輸出的概念是一樣的。
+    </li>
+    <li>urlpatterns 範例裡有兩個要點：
+        <ul>
+            <li>polls 的 index 的 URL 是 '', 沒有斜線/。 </li>
+            <li>其它頁面，如 '&lt;int:question_id/&gt;'，都是有帶斜線/。尤其要注意這點，
+                雖然不帶斜線/的網址也可以用，根據實做經驗，所有頁面都統一都有帶斜線/，可以避開不必要的困擾。
+            </li>
+        </ul>
+
+    </li>
+
+
+</ul>
+
+<h3>2. Practice views: HttpResponse(template.render(context, request))</h3>
+<ul>
+    <li>這是由 HttpResponse 要過渡到 render
+    </li>
+    
+
+
+</ul>
+
+
+<h3>3. Practice views: render</h3>
+<ul>
+
+    <li>'polls/index.html'
+        </li>
+    <li>個人已習慣用 getHtml(index) 取代。好處就是不重覆 'polls/' 和 '.html'</li>
+    
+
+</ul>
+
+
+
+<h3>4. Raise a 404 error</h3>
+<ul>
+    <li>
+        雖然 Django 提供了 get()，可以搭配 404，實做上，
+        有些情境使用  filter() , 沒有資料走特定頁面或顯示，感覺比較 programmer-friendly and user-friendly. 。
+
+
+    </li>
+    
+</ul>
+
+
+
+<h3>5. Use the template system</h3>
+<ul>
+        <li> 官網入門教程在這輕輕提一下，真正的重頭戲在 https://docs.djangoproject.com/en/3.0/topics/templates/ </li>
+        <li> 另外自行加 template filter, https://docs.djangoproject.com/en/3.0/howto/custom-template-tags/, 
+            可以有效處理輸出的格式，例如真假值，有時候我們希望在不同頁面情境會顯示像是"對錯"或是"OX"等。 </li>
+</ul>
+
+<h3>5. Remove hardcoded URLs in templates</h3>
+<ul>
+        <li> 截圖這部分想要直接用HTML寫成文檔是有點挑戰的</li>
+        <li> 實做上的經驗，儘量使用相對路徑更好。</li>
+        
+</ul>
+
+<h3>6. Namespace on urls.py</h3>
+<ul>
+        <li> 直接了當，在urls.py 一定要使用像， app_name = 'polls'。 </li>
+        <li> 注意 polls:detail 的冒號:，&lcub;&percnt;&nbsp;	url 'polls:detail' question.id &nbsp;&percnt;&rcub;</li>
+        
+</ul>
+
+
+{% endblock  %}

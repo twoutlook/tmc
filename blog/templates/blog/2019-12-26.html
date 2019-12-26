@@ -1,0 +1,53 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+<!-- {% load km001_extra %} -->
+
+{% block app_name %}
+Blog 2019-12-26
+
+{% endblock%}
+
+{% block page_name %}
+2019-12-26，花卉價格 Django 項目實做（一）
+{% endblock%}
+
+
+{% block go_up  %}
+<a class='btn btn-info' href='../info/'>回到上層 </a>
+{% endblock %}
+
+{% block content %}
+
+
+<p>
+    這陣子剛來參與一些項目討論，其中有關於花卉價格的部份，我覺得用來實做。
+    首先先確認基礎數據的來源，使用KIFA拍卖交易行情。我做了些功課，在官網公開的部份，也就是不必任何會員就可以獲得的信息。
+    以 玫瑰 為例，
+準備單獨取出前三品種，
+
+(1)卡罗拉
+(2)蜜桃雪山
+(3)粉红雪山
+
+做成demo 列表。
+可以看到每天這三品種的最低價和最高價。
+可以看到單一品種的歷史價格。
+
+</p>
+
+
+
+參考文檔： http://www.kifa.net.cn/info.do?method=show&contentId=132763
+<h1>2019-12-26，花卉價格 Django 項目實做（一）</h1>
+<h3>先看達到的效果</h3>
+<ul>
+        <li>在後台可以看到 Flower 和 Market 兩組數據。</li>
+        <li>Flower 有三個屬於玫瑰的品種 。</li>
+        <li>Market 有這三個品種兩天的最低價和最高價 。</li>
+        <li>這數據是先手工方式在後台輸入。</li>
+        <li>如何有效讀取其它品種或日期的數據是另一個課題。
+    
+
+</ul>
+
+{% endblock  %}

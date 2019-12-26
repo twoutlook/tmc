@@ -1,0 +1,56 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+<!-- {% load km001_extra %} -->
+
+{% block app_name %}
+Blog 2019-12-22
+
+{% endblock%}
+
+{% block page_name %}
+Django 3.0 Tutorial 04
+{% endblock%}
+
+
+{% block go_up  %}
+<a class='btn btn-info' href='../info/'>回到上層 </a>
+{% endblock %}
+
+{% block content %}
+
+
+<p>
+    今天是冬至，朋友們紛紛相互提醒這個節氣。對我而言，入冬總是個對身體機能的一個挑戰開始。
+    官網入門教程第四課，主題是教 form, 就是有個頁面，讓 end users 可以填寫或做一些選項，然後進行處理。
+    這部份是網頁互動的核心之一，不建議讓初學者在這主題一下陷入太深，要應該先在基本的頁面顯示列表，然後在列表的某項點擊進入更詳細的內容，然後可以回到上層或是上一個頁面。
+    
+</p>
+
+
+
+參考文檔： https://docs.djangoproject.com/en/3.0/intro/tutorial04/
+
+<h3>1. Write a minimal form</h3>
+<ul>
+    <li>必需要對網頁 get 和 post 有個學理上的理解。透過實做來來和學理結合。 </li>
+    <li>官網對 Django Forms 的專題是在，https://docs.djangoproject.com/en/2.2/topics/forms/。 </li>
+    <li>這裡的範例，沒有使用到 Django 的特色之一，也就是說沒有用上 Form class，個人是覺得可惜。
+        因為學習者在某種程度都有，先入為主的觀念，學了一個新的技術，再學相似的，會以之前學的為基準，入門教程，應該直接教  Form class，不然最少也要模仿上節課 view 的方式，從最原始的手寫 form 的方式過渡到  Form class。 </li>
+   
+
+</ul>
+
+<h3>2. Use generic views: Less code is better¶</h3>
+<ul>
+    <li>這部份，個人認為是一種選擇，從不同的技術貼和實做來看，一些更精細的客製，有時候直接在 function 編程更有彈性。
+        不可否認 CBV , 詳見 https://docs.djangoproject.com/en/3.0/topics/class-based-views/, 給初學者一個更便利的實做方式。
+        對資深開發人員的挑戰是如何封裝成更好的 CBV，而不是僅僅使用現成的。
+    </li>
+    
+
+
+</ul>
+
+
+
+{% endblock  %}
